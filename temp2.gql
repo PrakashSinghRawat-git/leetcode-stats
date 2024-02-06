@@ -1,0 +1,351 @@
+// pages/api/leetcode.js
+// ********************************************************
+const url3 = `https://leetcode.com/graphql?query=query{userPublicProfile(username: "kalki299") { matchedUser(username: "kalki299") { contestBadge { name expired hoverText icon } username githubUrl twitterUrl linkedinUrl profile { ranking userAvatar realName aboutMe school websites countryName company jobTitle skillTags postViewCount postViewCountDiff reputation reputationDiff solutionCount solutionCountDiff categoryDiscussCount categoryDiscussCountDiff } } }}`;
+
+
+// user profile, linked in etc
+let userProfileDetails = `query{ matchedUser(username: "kalki299") { contestBadge { name expired hoverText icon } username githubUrl twitterUrl linkedinUrl profile { ranking userAvatar realName aboutMe school websites countryName company jobTitle skillTags postViewCount postViewCountDiff reputation reputationDiff solutionCount solutionCountDiff categoryDiscussCount categoryDiscussCountDiff } } }`;
+
+
+
+// user problems
+let userSolvedAndAllQuestions = ` query{
+     allQuestionsCount {
+    difficulty
+    count
+  }
+  matchedUser(username: "kalki299") {
+    problemsSolvedBeatsStats {
+      difficulty
+      percentage
+    }
+    submitStatsGlobal {
+      acSubmissionNum {
+        difficulty
+        count
+      }
+    }
+    languageProblemCount {
+      languageName
+      problemsSolved
+    }
+    
+  }
+  }`;
+
+// combined user profile and question userSolvedAndAllQuestions
+const combinedQuery= query {
+  matchedUser(username: "kalki299") {
+    contestBadge {
+      name
+      expired
+      hoverText
+      icon
+    }
+    username
+    githubUrl
+    twitterUrl
+    linkedinUrl
+    profile {
+      ranking
+      userAvatar
+      realName
+      aboutMe
+      school
+      websites
+      countryName
+      company
+      jobTitle
+      skillTags
+      postViewCount
+      postViewCountDiff
+      reputation
+      reputationDiff
+      solutionCount
+      solutionCountDiff
+      categoryDiscussCount
+      categoryDiscussCountDiff
+    }
+    problemsSolvedBeatsStats {
+      difficulty
+      percentage
+    }
+    submitStatsGlobal {
+      acSubmissionNum {
+        difficulty
+        count
+      }
+    }
+     userCalendar(year: 2023) {
+      activeYears
+      streak
+      totalActiveDays
+      dccBadges {
+        timestamp
+        badge {
+          name
+          icon
+        }
+      }
+      submissionCalendar
+    }
+
+     badges {
+      id
+      name
+      shortName
+      displayName
+      icon
+      hoverText
+      medal {
+        slug
+        config {
+          iconGif
+          iconGifBackground
+        }
+      }
+      creationDate
+      category
+    }
+    upcomingBadges {
+      name
+      icon
+      progress
+    
+  }
+  languageProblemCount {
+      languageName
+      problemsSolved
+    }
+
+
+  }
+  allQuestionsCount {
+    difficulty
+    count
+  }
+  userContestRanking(username: "kalki299") {
+    attendedContestsCount
+    rating
+    globalRanking
+    totalParticipants
+    topPercentage
+    badge {
+      name
+    }
+  }
+
+ 
+}
+
+# **************
+
+const combinedQueryCompressed=   query {
+  matchedUser(username: "kalki299") {
+    contestBadge {
+      name
+      expired
+      hoverText
+      icon
+    }
+    username
+    githubUrl
+    twitterUrl
+    linkedinUrl
+    profile {
+      ranking
+      userAvatar
+      realName
+      aboutMe
+      school
+      websites
+      countryName
+      company
+      jobTitle
+      skillTags
+      postViewCount
+      postViewCountDiff
+      reputation
+      reputationDiff
+      solutionCount
+      solutionCountDiff
+      categoryDiscussCount
+      categoryDiscussCountDiff
+    }
+    problemsSolvedBeatsStats {
+      difficulty
+      percentage
+    }
+    submitStatsGlobal {
+      acSubmissionNum {
+        difficulty
+        count
+      }
+    }
+    languageProblemCount {
+      languageName
+      problemsSolved
+    }
+     activeBadge {
+      displayName
+      icon
+    }
+    
+
+     badges {
+      id
+      name
+      shortName
+      displayName
+      icon
+      hoverText
+      medal {
+        slug
+        config {
+          iconGif
+          iconGifBackground
+        }
+      }
+      creationDate
+      category
+    } 
+  }
+  allQuestionsCount {
+    difficulty
+    count
+  }
+  userContestRanking(username: "kalki299") {
+    attendedContestsCount
+    rating
+    globalRanking
+    totalParticipants
+    topPercentage
+    badge {
+      name
+    }
+  }
+  
+}
+
+# ************
+
+    
+
+
+
+let q2 = `query  {
+  siteAnnouncements {
+    title
+    content
+    blacklistUrls
+    whitelistUrls
+    navbarItem
+  
+}}`;
+
+let q3 = `query { matchedUser(username: "kalki299") {
+    languageProblemCount {
+      languageName
+      problemsSolved
+    }
+  }}`;
+
+let q4 = ` query{matchedUser(username: "kalki299") {
+    tagProblemCounts {
+      advanced {
+        tagName
+        tagSlug
+        problemsSolved
+      }
+      intermediate {
+        tagName
+        tagSlug
+        problemsSolved
+      }
+      fundamental {
+        tagName
+        tagSlug
+        problemsSolved
+      }
+    }
+  }}`;
+
+// usercontestinfo
+let q5 = ` query{
+    userContestRanking(username: "kalki299") {
+    attendedContestsCount
+    rating
+    globalRanking
+    totalParticipants
+    topPercentage
+    badge {
+      name
+    }
+  }
+  }`;
+
+// user badge
+let q7 = ` query{
+     matchedUser(username: "kalki299") {
+    badges {
+      id
+      name
+      shortName
+      displayName
+      icon
+      hoverText
+      medal {
+        slug
+        config {
+          iconGif
+          iconGifBackground
+        }
+      }
+      creationDate
+      category
+    }
+    upcomingBadges {
+      name
+      icon
+      progress
+    }
+  }
+  }`;
+
+// user profile calendar
+let q8 = ` query{
+     matchedUser(username: "kalki299") {
+    userCalendar(year: $year) {
+      activeYears
+      streak
+      totalActiveDays
+      dccBadges {
+        timestamp
+        badge {
+          name
+          icon
+        }
+      }
+      submissionCalendar
+    }
+  }
+  }`;
+
+// streak counter
+let q9 = `query{
+     streakCounter {
+    streakCount
+    daysSkipped
+    currentDayCompleted
+  }
+  }`;
+
+// user profile
+let q10 = ` query{
+      matchedUser(username: "kalki299") {
+    activeBadge {
+      displayName
+      icon
+    }
+  }
+  }`;

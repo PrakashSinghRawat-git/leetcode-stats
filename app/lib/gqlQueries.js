@@ -1,0 +1,210 @@
+const endpoint = process.env.NEXT_PUBLIC_LEETCODE_GRAPHQL_API;
+
+export const completeUserInfoQuery = (username, year) => {
+    const newQuery = `query {
+        matchedUser(username: "${username}") {
+            contestBadge {
+                name
+                expired
+                hoverText
+                icon
+            }
+           
+            username
+            githubUrl
+            twitterUrl
+            linkedinUrl
+            profile {
+                ranking
+                userAvatar
+                realName
+                aboutMe
+                school
+                websites
+                countryName
+                company
+                jobTitle
+                skillTags
+                postViewCount
+                postViewCountDiff
+                reputation
+                reputationDiff
+                solutionCount
+                solutionCountDiff
+                categoryDiscussCount
+                categoryDiscussCountDiff
+            }
+            problemsSolvedBeatsStats {
+                difficulty
+                percentage
+            }
+            languageProblemCount {
+      languageName
+      problemsSolved
+    }
+            submitStatsGlobal {
+                acSubmissionNum {
+                    difficulty
+                    count
+                }
+            }
+            userCalendar(year: ${year}) {
+                activeYears
+                streak
+                totalActiveDays
+                dccBadges {
+                    timestamp
+                    badge {
+                        name
+                        icon
+                    }
+                }
+                submissionCalendar
+            }
+            badges {
+                id
+                name
+                shortName
+                displayName
+                icon
+                hoverText
+                medal {
+                    slug
+                    config {
+                        iconGif
+                        iconGifBackground
+                    }
+                }
+                creationDate
+                category
+            }
+            upcomingBadges {
+                name
+                icon
+                progress
+            }
+        }
+        allQuestionsCount {
+            difficulty
+            count
+        }
+        userContestRanking(username: "${username}") {
+            attendedContestsCount
+            rating
+            globalRanking
+            totalParticipants
+            topPercentage
+            badge {
+                name
+            }
+        }
+  
+    }`;
+
+    const combinedQuery = `${endpoint}?query=${newQuery}`;
+    return combinedQuery;
+};
+
+export const UserInfoForComparisonQuery = (username) => {
+    const newQuery = `query {
+        matchedUser(username: "${username}") {
+            contestBadge {
+                name
+                expired
+                hoverText
+                icon
+            }
+            username
+            githubUrl
+            linkedinUrl
+            profile {
+                ranking
+                userAvatar
+                realName
+                skillTags
+                postViewCount
+                postViewCountDiff
+                reputation
+                reputationDiff
+                solutionCount
+                solutionCountDiff
+                categoryDiscussCount
+                categoryDiscussCountDiff
+            }
+            problemsSolvedBeatsStats {
+                difficulty
+                percentage
+            }
+             submitStatsGlobal {
+                acSubmissionNum {
+                    difficulty
+                    count
+                }
+            }
+            languageProblemCount {
+      languageName
+      problemsSolved
+    }
+            badges {
+                id
+                name
+                shortName
+                displayName
+                 
+            }
+             
+        }
+         streakCounter {
+    streakCount
+    daysSkipped
+    currentDayCompleted
+  }
+        
+        userContestRanking(username: "${username}") {
+            attendedContestsCount
+            rating
+            globalRanking
+            totalParticipants
+            topPercentage
+            badge {
+                name
+            }
+        }
+   
+    }`;
+
+    const combinedQuery = `${endpoint}?query=${newQuery}`;
+    return combinedQuery;
+};
+
+export const userCheckQuery = (username) => {
+    const newQuery = `query {
+        matchedUser(username: "${username}") {
+           
+            username
+           
+        }
+    }`;
+
+    const combinedQuery = `${endpoint}?query=${encodeURIComponent(newQuery)}`;
+    return combinedQuery;
+};
+export const userContestHistoryForComparisonQuery = (username) => {
+    const newQuery = `query {
+        matchedUser(username: "${username}") {
+            
+            username
+             
+        }userContestRankingHistory(username: "${username}") {
+                attended
+                rating
+                ranking
+                contest {
+                    startTime
+                }
+            }
+    }`;
+
+    const combinedQuery = `${endpoint}?query=${newQuery}`;
+    return combinedQuery;
+};

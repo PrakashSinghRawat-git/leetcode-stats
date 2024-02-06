@@ -1,0 +1,11 @@
+# leetcode api
+
+1- https://leetcodestats.cyclic.app/kalki299
+2 - front end : https://github.com/JeremyTsaii/leetcode-stats
+	backend api:https://github.com/JeremyTsaii/leetcode-stats-api?tab=readme-ov-file
+
+3- discussion : https://leetcode.com/discuss/general-discussion/1297705/is-there-public-api-endpoints-available-for-leetcode
+
+4- https://github.com/ayushman-sinha/ayushman_sinha/blob/master/api/routes/Queries/contestInfo.js
+
+4 - many queries - https://github.com/akarsh1995/leetcode-graphql-queries
