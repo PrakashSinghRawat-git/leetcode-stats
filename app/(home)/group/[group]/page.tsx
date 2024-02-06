@@ -10,8 +10,8 @@ import ThemeChanger from "@/app/components/ThemeChanger";
 import NavItems from "../NavItems";
 
 const Page = ({ params }: { params: { group: string } }) => {
-    // const { groupArr, setGroupArr } = globalStore();
-    const groupArr = ["ayushman_sinha", "neal_wu", "numb3r5", "fmota"];
+    const { groupArr, setGroupArr } = globalStore();
+    // const groupArr = ["ayushman_sinha", "neal_wu", "numb3r5", "fmota"];
 
     const [usersData, setUsersData] = useState<any>(null);
     const [usersContestData, setUsersContestData] = useState<any>(null);

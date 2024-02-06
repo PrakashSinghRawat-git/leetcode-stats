@@ -4,7 +4,7 @@ import "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { getRandomColor } from "@/app/lib/functions";
 
-const ProblemSolvedBarChart = ({ userData }: any) => {
+const ProblemSolvedBarChart = ({ usersData }: any) => {
     const [problemSolvedBarData, setProblemSolvedBarData] = useState<{
         labels: string[];
         datasets: {
@@ -28,11 +28,11 @@ const ProblemSolvedBarChart = ({ userData }: any) => {
     });
 
     useEffect(() => {
-        if (userData) {
-            const labels = userData.map(
+        if (usersData) {
+            const labels = usersData.map(
                 (user: any) => user.matchedUser.username
             );
-            const data = userData.map(
+            const data = usersData.map(
                 (user: any) =>
                     user.matchedUser.submitStatsGlobal.acSubmissionNum[0].count
             );
@@ -55,7 +55,7 @@ const ProblemSolvedBarChart = ({ userData }: any) => {
                 ],
             });
         }
-    }, [userData]);
+    }, [usersData]);
 
     const optionsBar: any = {
         plugins: {
