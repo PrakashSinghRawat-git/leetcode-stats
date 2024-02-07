@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
+import { getRandomSolidColor } from "@/app/lib/functions";
 
 interface ChartData {
     labels: string[];
@@ -13,7 +14,7 @@ interface ChartData {
     }[];
 }
 
-const ProblemSolvedByCategory = ({ userData }: any) => {
+const ProblemSolvedByLanguage = ({ userData }: any) => {
     const [chartData, setChartData] = useState<ChartData>({
         labels: [],
         datasets: [
@@ -32,12 +33,12 @@ const ProblemSolvedByCategory = ({ userData }: any) => {
         // Extract labels and data from userData
         const labels: string[] = [];
         const data: number[] = [];
-        userData?.matchedUser?.submitStatsGlobal?.acSubmissionNum?.forEach(
-            (item: any) => {
-                labels.push(`${item.difficulty}: ${item.count}  `);
-                data.push(item.count);
-            }
-        );
+        const colorArr: string[] = [];
+        userData?.matchedUser?.languageProblemCount?.forEach((item: any) => {
+            labels.push(`${item.languageName} ${item.problemsSolved}  `);
+            data.push(item.problemsSolved);
+            colorArr.push(getRandomSolidColor());
+        });
 
         // Update chartData state
         setChartData({
@@ -46,12 +47,7 @@ const ProblemSolvedByCategory = ({ userData }: any) => {
                 {
                     label: "Problems Solved by Category",
                     data: data,
-                    backgroundColor: [
-                        "rgb(0,0,255,0.8)",
-                        "rgb(0,255,0,0.8)",
-                        "rgb(255,255,0,0.8)",
-                        "rgb(255,0,0,0.8)",
-                    ],
+                    backgroundColor: ["blue", "green", "yellow", "red"],
                     borderWidth: 1,
                 },
             ],
@@ -65,7 +61,7 @@ const ProblemSolvedByCategory = ({ userData }: any) => {
         plugins: {
             title: {
                 display: true,
-                text: "Problems Solved by Category",
+                text: "Sample Pie Chart",
             },
         },
     };
@@ -77,4 +73,4 @@ const ProblemSolvedByCategory = ({ userData }: any) => {
     );
 };
 
-export default ProblemSolvedByCategory;
+export default ProblemSolvedByLanguage;

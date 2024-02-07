@@ -67,7 +67,7 @@ const Page = ({ params }: { params: { group: string } }) => {
                 <NavItems groupArr={groupArr} />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2   w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10">
+            <div className="grid grid-cols-1 mx-auto lg:grid-cols-2   w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10">
                 <div className="relative">
                     <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
 
