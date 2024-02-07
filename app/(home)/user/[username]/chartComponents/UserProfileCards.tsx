@@ -44,7 +44,8 @@ const UserProfileCards = ({ matchedUserData }: any) => {
                         <div className="relative z-20 mt-1 flex flex-row items-start justify-start ">
                             <span className="flex flex-col">
                                 <span className=" text-sm  text-start my-1 leading-[1.6] text-gray-200 font-normal italic">
-                                    " {matchedUserData?.profile?.aboutMe} "
+                                    &quot; {matchedUserData?.profile?.aboutMe}{" "}
+                                    &quot;
                                 </span>
 
                                 <span className=" text-sm gap-1 text-center leading-[1.6] text-gray-400 font-normal">
