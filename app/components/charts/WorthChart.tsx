@@ -18,7 +18,7 @@ const WorthChart = ({ usersData }: any) => {
         labels: [],
         datasets: [
             {
-                label: "Total Badges Earned",
+                label: "Estimated Worth of LeetCode Profile",
                 data: [],
                 backgroundColor: [],
                 borderColor: ["rgba(75, 192, 192, 1)"],
@@ -66,7 +66,7 @@ const WorthChart = ({ usersData }: any) => {
                 labels: labels,
                 datasets: [
                     {
-                        label: "Total Badges Earned",
+                        label: "Estimated Worth of LeetCode Profile",
                         data: data,
                         backgroundColor: backgroundColors,
                         borderColor: ["rgba(75, 192, 192, 1)"],
