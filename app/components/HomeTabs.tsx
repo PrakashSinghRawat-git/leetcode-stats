@@ -62,8 +62,8 @@ export default function TabsDemo() {
     };
 
     const handleNavigateToComparison = () => {
-        if (groupArr.length == 0) {
-            toast.error("Please add group name and members to compare");
+        if (groupArr.length < 2) {
+            toast.error("Please add atleast 2 users to compare");
             return;
         }
         router.push(`/collection/temp`);

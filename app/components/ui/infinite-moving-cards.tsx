@@ -7,18 +7,18 @@ export const InfiniteMovingCards = ({
     items,
     direction = "left",
     speed = "slow",
-    pauseOnHover = true,
     className,
 }: {
     items: any[];
     direction?: "left" | "right";
     speed?: "fast" | "normal" | "slow";
-    pauseOnHover?: boolean;
+
     className?: string;
 }) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const scrollerRef = React.useRef<HTMLUListElement>(null);
 
+    console.log("badges items are: ", items);
     useEffect(() => {
         addAnimation();
     }, []);
@@ -87,7 +87,7 @@ export const InfiniteMovingCards = ({
                 className={cn(
                     " flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
                     start && "animate-scroll ",
-                    pauseOnHover && "hover:[animation-play-state:paused]"
+                    "hover:[animation-play-state:paused]"
                 )}
             >
                 {items.map((item, idx) => (

@@ -45,3 +45,67 @@ export const getRandomShadesColor = (colorName) => {
 
     return `rgb(${r}, ${g}, ${b},0.8)`;
 };
+
+const sigmoid = (x) => {
+    return 2 / (1 + Math.exp(-x)) - 1;
+};
+
+// Function to calculate LeetCode profile worth
+export function calculateLeetCodeWorth(
+    submissionArr,
+    contestsAttended,
+    rating,
+    ranking,
+    badges
+) {
+    console.log(submissionArr, contestsAttended, rating, ranking, badges);
+    // Define weights for different difficulty levels
+    const weights = {
+        All: 0,
+        Easy: 50,
+        Medium: 100,
+        Hard: 150,
+    };
+    let questionsWorth = 0;
+    console.log("questionsWorth", questionsWorth);
+
+    // Calculate worth based on questions solved
+    if (submissionArr && submissionArr.length > 0) {
+        submissionArr.forEach((submission) => {
+            questionsWorth += submission.count * weights[submission.difficulty];
+        });
+    }
+
+    console.log("questionsWorth", questionsWorth);
+
+    // Calculate worth based on contests attended
+    if (contestsAttended) {
+        questionsWorth += 10000 * contestsAttended;
+    }
+
+    console.log("questionsWorth", questionsWorth);
+
+    // Calculate worth based on rating
+
+    if (rating) {
+        if (ranking < 1000000) {
+            questionsWorth += (1 - sigmoid(rating)) * 1000000;
+        }
+    }
+    if (ranking) {
+        if (ranking < 1000000) {
+            questionsWorth += (1 - sigmoid(ranking)) * 1000000;
+        }
+    }
+
+    console.log("questionsWorth", questionsWorth);
+
+    // Calculate total worth
+    if (badges) {
+        questionsWorth += badges * 10000;
+    }
+
+    console.log("questionsWorth", questionsWorth);
+
+    return questionsWorth;
+}

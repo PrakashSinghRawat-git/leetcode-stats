@@ -4,6 +4,7 @@ import globalStore from "@/app/store/globalStore";
 import ProblemSolvedBarChart from "@/app/components/charts/ProblemSolvedBarChart";
 import ContestAttendedChart from "@/app/components/charts/ContestAttendedChart";
 import NoOfBadgesChart from "@/app/components/charts/NoOfBadgesChart";
+import WorthChart from "@/app/components/charts/WorthChart";
 import ContestHistoryChart from "@/app/components/charts/ContestHistoryChart";
 import MulitSeriesPieQuestionsCategoryChart from "@/app/components/charts/MulitSeriesPieQuestionsCategoryChart";
 import ThemeChanger from "@/app/components/ThemeChanger";
@@ -116,6 +117,16 @@ const Page = ({ params }: { params: { group: string } }) => {
                         <ContestAttendedChart usersData={usersData} />
                         <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
                             Total Contest Attended
+                        </p>
+                    </div>
+                </div>
+                <div className="relative">
+                    <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
+
+                    <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                        <WorthChart usersData={usersData} />
+                        <p className="text-normal  text-[#fbbf24] sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                            Estimated Worth
                         </p>
                     </div>
                 </div>

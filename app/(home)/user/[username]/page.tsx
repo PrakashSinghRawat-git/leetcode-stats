@@ -6,10 +6,12 @@ import ProblemSolvedByLanguage from "./chartComponents/ProblemSolvedByLanguage";
 import ContestHistoryChart from "@/app/components/charts/ContestHistoryChart";
 import { InfiniteMovingCards } from "@/app/components/ui/infinite-moving-cards";
 import UserProfileCards from "./chartComponents/UserProfileCards";
+import { calculateLeetCodeWorth } from "@/app/lib/functions";
 
 export default function Page({ params }: { params: { username: string } }) {
     const [userData, setUserData] = useState<any>(null);
     const [userContestData, setUserContestData] = useState<any>(null);
+    const [worth, setWorth] = useState<number>(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,6 +40,19 @@ export default function Page({ params }: { params: { username: string } }) {
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if (userData === null) return;
+        const worth = calculateLeetCodeWorth(
+            userData?.matchedUser?.submitStatsGlobal?.acSubmissionNum,
+            userData?.userContestRanking?.attendedContestsCount,
+            userData?.userContestRanking?.rating,
+            userData?.matchedUser?.ranking,
+            userData?.matchedUser?.badges?.length
+        );
+        console.log("worth is: ", worth);
+        setWorth(worth);
+    }, [userData]);
 
     useEffect(() => {
         if (userData === null) return;
@@ -70,6 +85,7 @@ export default function Page({ params }: { params: { username: string } }) {
                     <div className="w-full">
                         <UserProfileCards
                             matchedUserData={userData?.matchedUser}
+                            worth={worth}
                         />
                     </div>
                     <div className=" w-full  mx-auto md:w-[90%]">

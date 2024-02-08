@@ -15,7 +15,7 @@ import {
     Dot,
 } from "lucide-react";
 
-const UserProfileCards = ({ matchedUserData }: any) => {
+const UserProfileCards = ({ matchedUserData, worth }: any) => {
     return (
         <section className="w-full ">
             <div className=" w-[90vw] sm:w-full grid grid-cols-2 mx-auto    m-5  justify-center md:justify-between">
@@ -58,6 +58,15 @@ const UserProfileCards = ({ matchedUserData }: any) => {
                                         </span>
                                     </span>
                                 </span>
+                            </div>
+
+                            <div className="text-[#fbbf24] mt-5 w-full flex-col justify-center items-center mx-auto text-center">
+                                <p className="text-lg font-bold tracking-widest ">
+                                    $ {worth}
+                                </p>
+                                <p className="text-xs text-gray-300">
+                                    Estimated Worth
+                                </p>
                             </div>
                         </div>
                         <blockquote className="  ml-10 w-full">
@@ -144,13 +153,15 @@ const UserProfileCards = ({ matchedUserData }: any) => {
                                                 )
                                             )}
                                     </span>
+                                    <p className="mt-10  w-full text-sm mx-auto text-center  pl-1 my-1 leading-[1.6] text-gray-200 font-normal italic  ">
+                                        &quot;{" "}
+                                        {matchedUserData?.profile?.aboutMe}{" "}
+                                        &quot;
+                                    </p>
                                 </span>
                             </div>
                         </blockquote>
                     </div>
-                    <p className="   w-full text-sm mx-auto text-center  pl-1 my-1 leading-[1.6] text-gray-200 font-normal italic mt-6">
-                        &quot; {matchedUserData?.profile?.aboutMe} &quot;
-                    </p>
                 </div>
 
                 <div

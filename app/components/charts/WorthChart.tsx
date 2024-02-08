@@ -3,8 +3,8 @@ import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { getRandomColor } from "@/app/lib/functions";
-
-const NoOfBadgesChart = ({ usersData }: any) => {
+import { calculateLeetCodeWorth } from "@/app/lib/functions";
+const WorthChart = ({ usersData }: any) => {
     const [badgesNumberBarData, setBadgesNumberBarData] = useState<{
         labels: string[];
         datasets: {
@@ -27,13 +27,34 @@ const NoOfBadgesChart = ({ usersData }: any) => {
         ],
     });
 
+    // useEffect(() => {
+    //     if (userData === null) return;
+    //     const worth = calculateLeetCodeWorth(
+    //         userData?.matchedUser?.submitStatsGlobal?.acSubmissionNum,
+    //         userData?.userContestRanking?.attendedContestsCount,
+    //         userData?.userContestRanking?.rating,
+    //         userData?.matchedUser?.ranking,
+    //         userData?.matchedUser?.badges?.length
+    //     );
+    //     console.log("worth is: ", worth);
+    //     setWorth(worth);
+    // }, [userData]);
+
     useEffect(() => {
         if (usersData) {
             const labels = usersData.map(
                 (user: any) => user.matchedUser.username
             );
             const data = usersData.map((user: any) => {
-                return user.matchedUser.badges.length;
+                const worth = calculateLeetCodeWorth(
+                    user?.matchedUser?.submitStatsGlobal?.acSubmissionNum,
+                    user?.userContestRanking?.attendedContestsCount,
+                    user?.userContestRanking?.rating,
+                    user?.matchedUser?.ranking,
+                    user?.matchedUser?.badges?.length
+                );
+
+                return worth;
             });
 
             // Generate random colors dynamically
@@ -102,4 +123,4 @@ const NoOfBadgesChart = ({ usersData }: any) => {
     );
 };
 
-export default NoOfBadgesChart;
+export default WorthChart;
