@@ -130,7 +130,7 @@ export default function DialogDemo({ groupArr, params }: groupArrType) {
                             </Label>
                             <Input
                                 id="link"
-                                defaultValue={`leetstats.vercel.app/collection/${collectionName}`}
+                                defaultValue={`leetstat.vercel.app/collection/${collectionName}`}
                                 className="text-gray-900 font-semibold"
                                 readOnly
                             />
