@@ -10,6 +10,7 @@ import MulitSeriesPieQuestionsCategoryChart from "@/app/components/charts/MulitS
 import ThemeChanger from "@/app/components/ThemeChanger";
 import UserNamesCloud from "../comps/UserNamesCloud";
 import NavItems from "../comps/NavItems";
+import { updateViews } from "@/app/lib/database-calls";
 
 import { fetchUsernames } from "@/app/lib/database-calls";
 const Page = ({ params }: { params: { group: string } }) => {
@@ -24,6 +25,17 @@ const Page = ({ params }: { params: { group: string } }) => {
 
     const [usersData, setUsersData] = useState<any>(null);
     const [usersContestData, setUsersContestData] = useState<any>(null);
+
+    const [views, setViews] = useState<number>(0);
+
+    useEffect(() => {
+        const func = async () => {
+            const viewCount = await updateViews();
+            setViews(viewCount);
+            console.log("views:", viewCount);
+        };
+        func();
+    }, []);
 
     useEffect(() => {
         console.log("fetching usernames");
@@ -95,7 +107,7 @@ const Page = ({ params }: { params: { group: string } }) => {
     return (
         <div className="flex-col justify-center items-center text-gray-200">
             <div className="w-full m-5  ">
-                <NavItems groupArr={groupArr} params={params} />
+                <NavItems groupArr={groupArr} params={params} views={views} />
                 <UserNamesCloud groupArr={groupArr} />
             </div>
 

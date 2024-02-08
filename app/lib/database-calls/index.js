@@ -66,122 +66,24 @@ export const fetchUsernames = async (groupId) => {
     }
 };
 
-// export const createDealer = async (dealerObj) => {
-//     // Add createdAt field to the dealer object
-//     const carLeadWithTimestamp = {
-//         ...dealerObj,
-//         createdAt: serverTimestamp(), // Add the server timestamp to createdAt field
-//     };
-
-//     try {
-//         const postRef = await addDoc(
-//             collection(db, "dealersData"),
-//             carLeadWithTimestamp
-//         );
-//         return postRef.id; // Return the newly created document
-//     } catch (error) {
-//         console.error("Error creating dealer: ", error);
-//         throw error;
-//     }
-// };
-
-// // ****************************** INSPECTIN REPORT ROUTES *******************************
-
-// // Function to fetch all reports from Firestore
-// export const fetchAllReports = async () => {
-//     try {
-//         const inspectionData = [];
-//         const carsRef = collection(db, "carsInspectionData");
-//         const querySnapshot = await getDocs(carsRef);
-
-//         querySnapshot.forEach((doc) => {
-//             inspectionData.push({ id: doc.id, ...doc.data() });
-//         });
-
-//         return inspectionData;
-//     } catch (error) {
-//         console.error("Error fetching inspections data: ", error);
-//         return [];
-//     }
-// };
-
-// // fetchOneReport from firebase
-// export const fetchOneReport = async (postId) => {
-//     try {
-//         const reportRef = doc(db, "carsInspectionData", postId);
-
-//         const reportSnapshot = await getDoc(reportRef);
-
-//         if (reportSnapshot.exists()) {
-//             return { id: reportSnapshot.id, ...reportSnapshot.data() };
-//         } else {
-//             return null;
-//         }
-//     } catch (error) {
-//         console.error("Error fetching post by ID: ", error);
-//         return null; // You can handle errors appropriately in your application
-//     }
-// };
-
-// // update report with given id
-// // update QC Status
-// export const updateOneReport = async (id, field, value) => {
-//     try {
-//         const reportRef = doc(db, "carsInspectionData", id);
-//         await updateDoc(reportRef, { [field]: value });
-
-//         return value;
-//     } catch (error) {
-//         console.log("error updating report field...", error);
-//         throw error;
-//     }
-// };
-
-// export const deleteOneReport = async (id) => {
-//     try {
-//         const reportRef = doc(db, "carsInspectionData", id);
-//         await deleteDoc(reportRef);
-//         return true;
-//     } catch (error) {
-//         console.log("error deleting report");
-//         throw error;
-//     }
-// };
-// // ****************************** AUCTIONS ROUTES *******************************
-
-// // fetching all post with isAuctionLive=true
-// export const getLiveAuctions = async (email) => {
-//     try {
-//         const reportRef = collection(db, "carsInspectionData");
-//         const q = query(reportRef, where("isAuctionLive", "==", true));
-//         const querySnapshot = await getDocs(q);
-
-//         if (querySnapshot.empty) {
-//             console.log("reports do not exist");
-//             return null;
-//         } else {
-//             const data = querySnapshot.docs.map((doc) => ({
-//                 id: doc.id,
-//                 ...doc.data(), // Extract the document data
-//             }));
-//             console.log("reports with live auction are: ", data);
-//             return data;
-//         }
-//     } catch (error) {
-//         console.log("error getting user", error);
-//         throw error;
-//     }
-// };
-
-// // update QC Status
-// export const updateQCStatus = async (id, value) => {
-//     try {
-//         const reportRef = doc(db, "carsInspectionData", id);
-//         const res = await updateDoc(reportRef, { qcStatus: value });
-//         console.log("qc status updated successfully", res);
-//         return res;
-//     } catch (error) {
-//         console.log("error updating qc status...", error);
-//         throw error;
-//     }
-// };
+export const updateViews = async () => {
+    try {
+        const docRef = doc(db, "viewsCollection", "views");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            const newViews = docSnap.data().views + 1;
+            await updateDoc(docRef, {
+                views: newViews,
+            });
+            console.log("views updated successfully");
+            return newViews;
+        } else {
+            console.log("No such document!");
+            return 0;
+        }
+    } catch (error) {
+        console.log("error updating views", error);
+        throw error;
+    }
+};

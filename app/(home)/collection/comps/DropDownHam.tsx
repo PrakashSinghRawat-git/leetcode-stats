@@ -1,16 +1,4 @@
-import {
-    MapPin,
-    GraduationCap,
-    Github,
-    Linkedin,
-    Twitter,
-    Globe,
-    Eye,
-    MessageSquareText,
-    Star,
-    CheckSquare2,
-    Dot,
-} from "lucide-react";
+import { Github, Linkedin, Twitter, Globe } from "lucide-react";
 import Link from "next/link";
 import {
     DropdownMenu,
@@ -24,7 +12,7 @@ import {
 
 import Image from "next/image";
 
-export default function DropdownMenuDemo() {
+export default function DropdownMenuDemo({ views }: { views: number }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -36,7 +24,12 @@ export default function DropdownMenuDemo() {
                     className="cursor-pointer hover:scale-105"
                 ></Image>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-[#2B3A63] text-gray-200 bg-opacity-90 border-none ">
+            <DropdownMenuContent
+                className="w-56 bg-[#2B3A63] text-gray-200 bg-opacity-90 border-none z-999 cursor-pointer  "
+                style={{
+                    zIndex: 999,
+                }}
+            >
                 <DropdownMenuLabel className="text-xs italic">
                     Hello! I made this...
                 </DropdownMenuLabel>
@@ -89,6 +82,10 @@ export default function DropdownMenuDemo() {
                             <span>Personal Site</span>
                         </Link>
                     </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator className="bg-gray-500" />
+                <DropdownMenuGroup className="text-xs text-gray-500 ml-5">
+                    <p>v-{views}</p>
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>

@@ -89,7 +89,7 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                             </p>
                                         )}
                                         {matchedUserData?.profile?.school && (
-                                            <p className="flex justify-start items-center gap-2">
+                                            <p className="flex justify-start items-center gap-2 w-fit pr-5 ">
                                                 <GraduationCap width={20} />
                                                 <span>
                                                     {
@@ -105,7 +105,7 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                                     matchedUserData?.githubUrl
                                                 }
                                                 target="_blank"
-                                                className="flex justify-start items-center gap-2"
+                                                className="flex justify-start items-center gap-2 w-fit pr-5 "
                                             >
                                                 <Github width={20} />
                                                 <span>Github</span>
@@ -117,7 +117,7 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                                     matchedUserData?.linkedinUrl
                                                 }
                                                 target="_blank"
-                                                className="flex justify-start items-center gap-2"
+                                                className="flex justify-start items-center gap-2 w-fit pr-5 "
                                             >
                                                 <Linkedin width={20} />
                                                 <span>Linkedin</span>
@@ -129,7 +129,7 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                                     matchedUserData?.twitterUrl
                                                 }
                                                 target="_blank"
-                                                className="flex justify-start items-center gap-2"
+                                                className="flex justify-start items-center gap-2 w-fit pr-5 "
                                             >
                                                 <Twitter width={20} />
                                                 <span>Twitter</span>
@@ -143,9 +143,10 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                                     index: number
                                                 ) => (
                                                     <Link
+                                                        key={index}
                                                         href={item}
                                                         target="_blank"
-                                                        className="flex justify-start items-center gap-2"
+                                                        className="flex justify-start items-center gap-2 w-fit pr-5 "
                                                     >
                                                         <Globe width={20} />
                                                         <span>{item}</span>

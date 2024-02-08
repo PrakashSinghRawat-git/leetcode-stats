@@ -1,6 +1,4 @@
-"use client";
 import HomeTabs from "@/app/components/HomeTabs";
-
 export default function Home() {
     return (
         <main className="flex flex-col justify-start items-center w-full min-h-screen">
