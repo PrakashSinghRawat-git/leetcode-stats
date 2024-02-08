@@ -6,6 +6,9 @@ export interface GroupArrType {
 
     themeMounted: boolean;
     setThemeMounted: (themeMounted: boolean) => void;
+
+    isCollectionCreated: boolean;
+    setIsCollectionCreated: (isCollectionCreated: boolean) => void;
 }
 
 // Define your store
@@ -15,6 +18,9 @@ const globalStore = create<GroupArrType>((set) => ({
 
     themeMounted: false,
     setThemeMounted: (val: boolean) => set({ themeMounted: val }),
+
+    isCollectionCreated: false,
+    setIsCollectionCreated: (val: boolean) => set({ isCollectionCreated: val }),
 }));
 
 export default globalStore;

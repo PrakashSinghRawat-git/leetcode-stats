@@ -61,7 +61,7 @@ const ProblemSolvedByLanguage = ({ userData }: any) => {
         plugins: {
             title: {
                 display: true,
-                text: "Sample Pie Chart",
+                text: "Problems Solved by Language",
             },
         },
     };

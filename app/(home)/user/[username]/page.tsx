@@ -106,7 +106,7 @@ export default function Page({ params }: { params: { username: string } }) {
                                 <ProblemSolvedByLanguage userData={userData} />
 
                                 <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                                    Total Problems Solved
+                                    Problems Solved by Language
                                 </p>
                             </div>
                         </div>

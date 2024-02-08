@@ -28,7 +28,7 @@ import { GroupArrType } from "@/app/store/globalStore";
 
 export default function TabsDemo() {
     const [userName, setUserName] = useState("");
-    const [groupName, setGroupName] = useState("");
+    // const [groupName, setGroupName] = useState("");
     const [member, setMember] = useState("");
     const { groupArr, setGroupArr } = globalStore();
 
@@ -62,15 +62,15 @@ export default function TabsDemo() {
     };
 
     const handleNavigateToComparison = () => {
-        if (groupName == "" || groupArr.length == 0) {
+        if (groupArr.length == 0) {
             toast.error("Please add group name and members to compare");
             return;
         }
-        router.push(`/group/${groupName}`);
+        router.push(`/collection/temp`);
     };
 
     return (
-        <Tabs defaultValue="group" className="w-[400px]">
+        <Tabs defaultValue="user" className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="user">View</TabsTrigger>
                 <TabsTrigger value="group">Compare</TabsTrigger>
@@ -84,7 +84,7 @@ export default function TabsDemo() {
                     <CardContent className=" w-full relative   flex items-center my-auto">
                         <Input
                             id="name"
-                            defaultValue="Username"
+                            placeholder="Username"
                             className="py-[25px] text-[18px] w-full   "
                             onChange={(e) => {
                                 setUserName(e.target.value);
@@ -103,10 +103,9 @@ export default function TabsDemo() {
                 <Card>
                     <CardHeader>
                         <CardDescription>
-                            Add users in a group and save it for future
-                            reference.
+                            Add Correct Usernames to Compare
                         </CardDescription>
-                        <div className="flex justify-between items-center ">
+                        {/* <div className="flex justify-between items-center ">
                             <CardTitle className="w-[180px] text-xl  ">
                                 Create Group
                             </CardTitle>
@@ -122,7 +121,7 @@ export default function TabsDemo() {
                                     placeholder="Group Name"
                                 />
                             </div>
-                        </div>
+                        </div> */}
                     </CardHeader>
                     <CardContent className="space-y-2">
                         <div className="space-y-1 grid grid-cols-10 items-end gap-2   "></div>

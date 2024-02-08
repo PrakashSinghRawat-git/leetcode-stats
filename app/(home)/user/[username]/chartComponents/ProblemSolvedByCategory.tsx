@@ -20,7 +20,7 @@ const ProblemSolvedByCategory = ({ userData }: any) => {
             {
                 label: "Problems Solved by Category",
                 data: [],
-                backgroundColor: ["blue", "green", "yellow", "red"],
+                backgroundColor: ["green", "yellow", "red"],
                 borderWidth: 1,
             },
         ],
@@ -34,6 +34,7 @@ const ProblemSolvedByCategory = ({ userData }: any) => {
         const data: number[] = [];
         userData?.matchedUser?.submitStatsGlobal?.acSubmissionNum?.forEach(
             (item: any) => {
+                if (item.difficulty === "All") return;
                 labels.push(`${item.difficulty}: ${item.count}  `);
                 data.push(item.count);
             }
@@ -47,7 +48,6 @@ const ProblemSolvedByCategory = ({ userData }: any) => {
                     label: "Problems Solved by Category",
                     data: data,
                     backgroundColor: [
-                        "rgb(0,0,255,0.8)",
                         "rgb(0,255,0,0.8)",
                         "rgb(255,255,0,0.8)",
                         "rgb(255,0,0,0.8)",

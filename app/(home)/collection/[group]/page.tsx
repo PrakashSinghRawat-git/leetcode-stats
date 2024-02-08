@@ -7,16 +7,46 @@ import NoOfBadgesChart from "@/app/components/charts/NoOfBadgesChart";
 import ContestHistoryChart from "@/app/components/charts/ContestHistoryChart";
 import MulitSeriesPieQuestionsCategoryChart from "@/app/components/charts/MulitSeriesPieQuestionsCategoryChart";
 import ThemeChanger from "@/app/components/ThemeChanger";
-import NavItems from "../NavItems";
+import UserNamesCloud from "../comps/UserNamesCloud";
+import NavItems from "../comps/NavItems";
 
+import { fetchUsernames } from "@/app/lib/database-calls";
 const Page = ({ params }: { params: { group: string } }) => {
-    const { groupArr, setGroupArr } = globalStore();
+    const {
+        groupArr,
+        setGroupArr,
+        isCollectionCreated,
+        setIsCollectionCreated,
+    } = globalStore();
+    // const { isCollectionCreated, setIsCollectionCreated } = globalStore();
     // const groupArr = ["ayushman_sinha", "neal_wu", "numb3r5", "fmota"];
 
     const [usersData, setUsersData] = useState<any>(null);
     const [usersContestData, setUsersContestData] = useState<any>(null);
 
     useEffect(() => {
+        console.log("fetching usernames");
+        const fetchData = async () => {
+            if (params.group !== "temp") {
+                setIsCollectionCreated(true);
+
+                const data = await fetchUsernames(params.group);
+                if (data) {
+                    console.log("client: data is ", data.usernames);
+                    setGroupArr(data.usernames);
+                } else {
+                    console.log(
+                        "error fetching usernames of group ",
+                        params.group
+                    );
+                } // setGroupArr(data);
+            }
+        };
+
+        fetchData();
+    }, [params]);
+    useEffect(() => {
+        if (groupArr.length == 0) return;
         const fetchData = async () => {
             try {
                 const res = await fetch("/api/fetchComparisonData", {
@@ -36,7 +66,7 @@ const Page = ({ params }: { params: { group: string } }) => {
         };
 
         fetchData();
-    }, []);
+    }, [groupArr]);
     useEffect(() => {
         if (usersData === null) return;
         const fetchContestData = async () => {
@@ -63,8 +93,9 @@ const Page = ({ params }: { params: { group: string } }) => {
 
     return (
         <div className="flex-col justify-center items-center text-gray-200">
-            <div className="w-full m-5">
-                <NavItems groupArr={groupArr} />
+            <div className="w-full m-5  ">
+                <NavItems groupArr={groupArr} params={params} />
+                <UserNamesCloud groupArr={groupArr} />
             </div>
 
             <div className="grid grid-cols-1 mx-auto lg:grid-cols-2   w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10">
