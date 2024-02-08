@@ -92,7 +92,12 @@ export default function Page({ params }: { params: { username: string } }) {
 
     return (
         <div className="w-screen relative">
-            <div className="absolute top-5 right-5">
+            <div
+                className="absolute top-5 right-5 z-99    "
+                style={{
+                    zIndex: 99,
+                }}
+            >
                 {" "}
                 <DropDownHam views={views} />
             </div>

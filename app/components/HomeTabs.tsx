@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Button } from "@/app/components/ui/button";
+import { use, useEffect, useState } from "react";
+import { DebounceInput } from "react-debounce-input";
 import {
     Card,
     CardContent,
@@ -10,6 +10,8 @@ import {
     CardHeader,
     CardTitle,
 } from "@/app/components/ui/card";
+import { Search } from "lucide-react";
+import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import {
@@ -18,20 +20,26 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/app/components/ui/tabs";
-import { ArrowRightCircle } from "lucide-react";
+import { ArrowRightCircle, X } from "lucide-react";
+import { Oval } from "react-loader-spinner";
 
+import { checkGroup } from "@/app/lib/database-calls";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import globalStore from "@/app/store/globalStore";
 // type GroupArrType = string[];
-import { GroupArrType } from "@/app/store/globalStore";
+// import { GroupArrType } from "@/app/store/globalStore";
 
 export default function TabsDemo() {
     const [userName, setUserName] = useState("");
-    // const [groupName, setGroupName] = useState("");
+    const [collectionName, setCollectionName] = useState("");
     const [member, setMember] = useState("");
     const { groupArr, setGroupArr } = globalStore();
+    const [collectionNameStatus, setCollectionNameStatus] =
+        useState<boolean>(true);
 
+    const [isSearchingUserStarted, setIsSearchingUserStarted] =
+        useState<boolean>(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -69,6 +77,43 @@ export default function TabsDemo() {
         router.push(`/collection/temp`);
     };
 
+    const handleInputChange = async (e: any) => {
+        try {
+            console.log("collection name", e.target.value);
+            setCollectionName(e.target.value);
+            const result = await checkGroup(e.target.value);
+            console.log("result:", result);
+            setCollectionNameStatus(result);
+        } catch (err) {
+            console.error("Error checking group:", err);
+        }
+    };
+
+    const handleCheckUser = async () => {
+        if (userName == "") {
+            return;
+        }
+        setIsSearchingUserStarted(true);
+        const res = await fetch(`/api/checkIsUserValid`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: userName }),
+        });
+        const data = await res.json();
+
+        console.log("data is : ", data);
+        if (data?.status == false) {
+            toast.error("User does not exists...");
+            setIsSearchingUserStarted(false);
+
+            return;
+        }
+        setIsSearchingUserStarted(false);
+
+        router.push(`/user/${userName}`);
+    };
     return (
         <Tabs defaultValue="user" className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
@@ -90,38 +135,79 @@ export default function TabsDemo() {
                                 setUserName(e.target.value);
                             }}
                         />
-                        <Link href={`/user/${userName}`}>
-                            <ArrowRightCircle
-                                width={50}
-                                className="absolute text-gray-900  cursor-pointer top-[20%]  right-[5%] "
-                            />
-                        </Link>
+
+                        {isSearchingUserStarted ? (
+                            <div className="absolute text-gray-900  cursor-pointer top-[20%]  right-[8%] ">
+                                <Oval
+                                    visible={true}
+                                    height="25"
+                                    width="25"
+                                    color="#4fa94d"
+                                    ariaLabel="oval-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass=""
+                                />
+                            </div>
+                        ) : (
+                            <button onClick={handleCheckUser}>
+                                <ArrowRightCircle
+                                    width={50}
+                                    className="absolute text-gray-900  cursor-pointer top-[20%]  right-[5%] "
+                                />
+                            </button>
+                        )}
                     </CardContent>
                 </Card>
             </TabsContent>
             <TabsContent value="group">
                 <Card>
                     <CardHeader>
+                        <div className="flex justify-between items-center ">
+                            <CardTitle className="w-[180px] text-xs mr-1 ">
+                                Search Saved Collection
+                            </CardTitle>
+                            <div className="w-fit   relative">
+                                <DebounceInput
+                                    debounceTimeout={500}
+                                    id="name"
+                                    value={collectionName}
+                                    placeholder={"search collection"}
+                                    onChange={(e) => handleInputChange(e)}
+                                    className={`flex ${
+                                        collectionNameStatus === true
+                                            ? "text-green-700"
+                                            : "text-red-700"
+                                    } text-sm   min-w-[100px] col-span-3    h-10 w-full rounded-md border border-input bg-background px-3 py-2   ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
+                                />
+
+                                <Search
+                                    strokeWidth={3}
+                                    className={`absolute  right-2 bottom-2 hover:scale-105 ${
+                                        collectionNameStatus === true
+                                            ? "text-green-500"
+                                            : "text-red-500 disabled:cursor-not-allowed disabled:opacity-50 "
+                                    }`}
+                                    onClick={() => {
+                                        if (collectionNameStatus === false) {
+                                            toast.error(
+                                                "this collection does not exists..."
+                                            );
+                                            return;
+                                        }
+                                        router.push(
+                                            `/collection/${collectionName}`
+                                        );
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <DropdownMenuSeparator />
+                        <p className="w-full text-center text-gray-400 font-extrabold">
+                            OR
+                        </p>
                         <CardDescription>
                             Add Correct Usernames to Compare
                         </CardDescription>
-                        {/* <div className="flex justify-between items-center ">
-                            <CardTitle className="w-[180px] text-xl  ">
-                                Create Group
-                            </CardTitle>
-                            <div className="w-fit   ">
-                                <Input
-                                    id="current"
-                                    type="text"
-                                    onChange={(e) => {
-                                        setGroupName(e.target.value);
-                                    }}
-                                    className="font-bold text-lg"
-                                    value={groupName}
-                                    placeholder="Group Name"
-                                />
-                            </div>
-                        </div> */}
                     </CardHeader>
                     <CardContent className="space-y-2">
                         <div className="space-y-1 grid grid-cols-10 items-end gap-2   "></div>
