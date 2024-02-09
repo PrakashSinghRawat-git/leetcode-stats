@@ -24,7 +24,7 @@ LeetStat is a web application that allows users to compare LeetCode profiles of 
 
 ## Developer
 
-- Prakash Singh Rawat [prakash-rawat-vercel.app]
+- [Prakash Singh Rawat](https://prakash-rawat.verce.app/)
 - Contact me: prakashsinghrawatuk@gmail.com
 
  
