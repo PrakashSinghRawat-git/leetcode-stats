@@ -62,9 +62,9 @@ export function calculateLeetCodeWorth(
     // Define weights for different difficulty levels
     const weights = {
         All: 0,
-        Easy: 50,
-        Medium: 100,
-        Hard: 150,
+        Easy: 5,
+        Medium: 10,
+        Hard: 20,
     };
     let questionsWorth = 0;
     console.log("questionsWorth", questionsWorth);
@@ -80,7 +80,7 @@ export function calculateLeetCodeWorth(
 
     // Calculate worth based on contests attended
     if (contestsAttended) {
-        questionsWorth += 10000 * contestsAttended;
+        questionsWorth += 1000 * contestsAttended;
     }
 
     console.log("questionsWorth", questionsWorth);
@@ -89,12 +89,12 @@ export function calculateLeetCodeWorth(
 
     if (rating) {
         if (ranking < 1000000) {
-            questionsWorth += (1 - sigmoid(rating)) * 1000000;
+            questionsWorth += (1 - sigmoid(rating)) * 100000;
         }
     }
     if (ranking) {
         if (ranking < 1000000) {
-            questionsWorth += (1 - sigmoid(ranking)) * 1000000;
+            questionsWorth += (1 - sigmoid(ranking)) * 100000;
         }
     }
 
@@ -102,10 +102,90 @@ export function calculateLeetCodeWorth(
 
     // Calculate total worth
     if (badges) {
-        questionsWorth += badges * 10000;
+        questionsWorth += badges * 1000;
     }
 
     console.log("questionsWorth", questionsWorth);
 
     return questionsWorth;
+}
+//  ********************************************USER SUBMISSION******************************************************* //
+const submissionCalendar = {
+    1674259200: 3,
+    1674604800: 3,
+    1674691200: 3,
+    1674777600: 2,
+    1674864000: 11,
+    1674950400: 6,
+    1675296000: 2,
+    1675382400: 3,
+    1675468800: 6,
+    1686528000: 1,
+    1691280000: 8,
+    1691452800: 4,
+    1691712000: 1,
+    1692403200: 3,
+    1692576000: 1,
+    1693267200: 1,
+    1693612800: 2,
+    1696291200: 2,
+};
+
+// function categorizeTimestamps(submissionCalendar) {
+export function categorizeTimestamps() {
+    const currentDate = new Date();
+    const categorizedTimestamps = {
+        today: 0,
+        yesterday: 0,
+        "this week": 0,
+        "this month": 0,
+        "this year": 0,
+    };
+    const yearlyTimestamps = {};
+
+    // Iterate through the timestamps
+    for (const timestamp in submissionCalendar) {
+        const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+
+        // Calculate the difference in days
+        const diffDays = Math.floor(
+            (currentDate - date) / (1000 * 60 * 60 * 24)
+        );
+
+        // Determine the time period
+        let timePeriod;
+        if (diffDays === 0) {
+            timePeriod = "today";
+        } else if (diffDays === 1) {
+            timePeriod = "yesterday";
+        } else if (diffDays < 7) {
+            timePeriod = "this week";
+        } else if (
+            date.getMonth() === currentDate.getMonth() &&
+            date.getFullYear() === currentDate.getFullYear()
+        ) {
+            timePeriod = "this month";
+        } else if (date.getFullYear() === currentDate.getFullYear()) {
+            timePeriod = "this year";
+        } else {
+            timePeriod = date.getFullYear().toString();
+        }
+
+        // Increment the count for the corresponding time period
+        if (timePeriod === "this year") {
+            yearlyTimestamps[date.getFullYear()] =
+                (yearlyTimestamps[date.getFullYear()] || 0) +
+                submissionCalendar[timestamp];
+        } else {
+            categorizedTimestamps[timePeriod] += submissionCalendar[timestamp];
+        }
+    }
+
+    // Combine the categorized timestamps with yearly timestamps
+    for (const year in yearlyTimestamps) {
+        categorizedTimestamps[year] = yearlyTimestamps[year];
+    }
+
+    console.log("categorizedTimestamps", categorizedTimestamps);
+    return categorizedTimestamps;
 }

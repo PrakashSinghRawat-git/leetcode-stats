@@ -14,29 +14,30 @@ import {
     CheckSquare2,
     Dot,
 } from "lucide-react";
+import SkeletonComp from "@/app/components/SkeletonComp";
 
 const UserProfileCards = ({ matchedUserData, worth }: any) => {
     return (
-        <section className="w-full ">
-            <div className=" w-[90vw] sm:w-full grid grid-cols-2 mx-auto    m-5  justify-center md:justify-between">
+        <section className="w-full  ">
+            <div className="w-full  md:w-[90vw] sm:w-full grid grid-cols-2 gap-y-2 my-5  justify-center md:justify-between">
                 <div
-                    className="col-span-2  md:col-span-1 bg-opacity-50 flex-col px-2 justify-start items-start  w-full md:w-[40vw]  mx-auto max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 pr-8 py-3 "
+                    className="col-span-2  md:col-span-1 bg-opacity-50 flex-col px-2 justify-start items-start  w-full md:w-[40vw]  mx-auto max-w-full relative rounded-2xl border border-b-0 flex-shrink-0   border-slate-700 p-2 "
                     style={{
                         background:
                             "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
                     }}
                 >
-                    <div className="flex justify-evenly">
-                        <div className=" flex-col  justify-start items-start min-w-[150px]">
+                    <div className="flex w-full justify-evenly">
+                        <div className=" flex-col   justify-start items-start min-w-[150px]   ">
                             <Image
                                 src={matchedUserData?.profile?.userAvatar}
                                 width={80}
                                 height={80}
                                 alt="profile-pic"
-                                className="rounded-md mx-auto w-fit-content w-[80px] "
+                                className="rounded-md my-1 ml-3 md:mt-2 md:mx-auto w-fit-content w-[80px] "
                             ></Image>
 
-                            <div className="relative z-20 mt-3 flex flex-row items-start justify-center">
+                            <div className="relative z-20 mt-3 flex flex-row items-start justify-start md:justify-center">
                                 <span className="flex flex-col">
                                     <span className=" text-sm  text-center leading-[1.6] text-gray-200 font-normal">
                                         {matchedUserData?.profile?.realName}{" "}
@@ -60,7 +61,7 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                 </span>
                             </div>
 
-                            <div className="text-[#fbbf24] mt-5 w-full flex-col justify-center items-center mx-auto text-center">
+                            <div className="text-[#fbbf24] mt-5 w-full flex-col justify-center items-center   md:text-center">
                                 <p className="text-lg font-bold tracking-widest ">
                                     $ {worth}
                                 </p>
@@ -69,7 +70,7 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                 </p>
                             </div>
                         </div>
-                        <blockquote className="  ml-10 w-full">
+                        <blockquote className="mt-5  md:ml-10 w-full">
                             <div className="relative z-20 mt-1 flex flex-row items-start justify-start ">
                                 <span className="flex flex-col">
                                     <span className="  gap-2 text-center leading-[1.6] text-gray-400 font-normal">
@@ -146,7 +147,7 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                                         key={index}
                                                         href={item}
                                                         target="_blank"
-                                                        className="flex justify-start items-center gap-2 w-fit pr-5 "
+                                                        className="flex justify-start items-center gap-2 w-fit pr-5  overflow-ellipsis truncate whitespace-nowrap max-w-[220px]"
                                                     >
                                                         <Globe width={20} />
                                                         <span>{item}</span>
@@ -154,11 +155,13 @@ const UserProfileCards = ({ matchedUserData, worth }: any) => {
                                                 )
                                             )}
                                     </span>
-                                    <p className="mt-10  w-full text-sm mx-auto text-center  pl-1 my-1 leading-[1.6] text-gray-200 font-normal italic  ">
-                                        &quot;{" "}
-                                        {matchedUserData?.profile?.aboutMe}{" "}
-                                        &quot;
-                                    </p>
+                                    {matchedUserData?.profile?.aboutMe && (
+                                        <p className="mt-10  w-full text-sm mx-auto text-center  pl-1 my-1 leading-[1.6] text-gray-200 font-normal italic  ">
+                                            &quot;{" "}
+                                            {matchedUserData?.profile?.aboutMe}{" "}
+                                            &quot;
+                                        </p>
+                                    )}
                                 </span>
                             </div>
                         </blockquote>

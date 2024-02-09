@@ -69,13 +69,14 @@ const ContestAttendedChart = ({ usersContestData }: any) => {
     };
 
     return (
-        <div className="w-full ">
+        <div className="w-full min-h-[300px] h-full ">
             <Chart
                 type="line"
                 data={contestHistoryLineData}
                 // options={optionsBar}
                 options={options}
                 // plugins={[ChartDataLabels]}
+                className=" min-h-[300px] h-full  w-full"
             />
         </div>
     );

@@ -11,6 +11,8 @@ import ThemeChanger from "@/app/components/ThemeChanger";
 import UserNamesCloud from "../comps/UserNamesCloud";
 import NavItems from "../comps/NavItems";
 import { updateViews } from "@/app/lib/database-calls";
+import DropDownHam from "../../../components/DropDownHam";
+import SkeletonComp from "@/app/components/SkeletonComp";
 
 import { fetchUsernames } from "@/app/lib/database-calls";
 const Page = ({ params }: { params: { group: string } }) => {
@@ -106,76 +108,126 @@ const Page = ({ params }: { params: { group: string } }) => {
 
     return (
         <div className="flex-col justify-center items-center text-gray-200">
+            <div
+                className="  right-5 fixed top-[92vh] z-99    "
+                style={{
+                    zIndex: 99,
+                }}
+            >
+                {" "}
+                <DropDownHam views={views} />
+            </div>
             <div className="w-full m-5  ">
                 <NavItems groupArr={groupArr} params={params} views={views} />
                 <UserNamesCloud groupArr={groupArr} />
             </div>
 
             <div className="grid grid-cols-1 mx-auto lg:grid-cols-2   w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10">
-                <div className="relative">
-                    <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
+                {usersData ? (
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
 
-                    <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
-                        <ProblemSolvedBarChart usersData={usersData} />
-                        <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                            Total Problems Solved
-                        </p>
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                            <ProblemSolvedBarChart usersData={usersData} />
+                            <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                                Total Problems Solved
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div className="relative">
-                    <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
-
-                    <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
-                        <ContestAttendedChart usersData={usersData} />
-                        <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                            Total Contest Attended
-                        </p>
+                ) : (
+                    <div className="w-full mx-auto flex justify-center">
+                        {" "}
+                        <SkeletonComp width={400} height={200} />
                     </div>
-                </div>
-                <div className="relative">
-                    <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
+                )}
+                {usersData ? (
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
 
-                    <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
-                        <WorthChart usersData={usersData} />
-                        <p className="text-normal  text-[#fbbf24] sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                            Estimated Worth
-                        </p>
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                            <ContestAttendedChart usersData={usersData} />
+                            <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                                Total Contest Attended
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div className="relative">
-                    <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
-
-                    <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
-                        <NoOfBadgesChart usersData={usersData} />
-                        <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                            Total Badges Earned
-                        </p>
+                ) : (
+                    <div className="w-full mx-auto flex justify-center">
+                        {" "}
+                        <SkeletonComp width={400} height={200} />
                     </div>
-                </div>
+                )}
+                {usersData ? (
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
 
-                <div className="relative">
-                    <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
-
-                    <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
-                        <MulitSeriesPieQuestionsCategoryChart
-                            usersData={usersData}
-                        />{" "}
-                        <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                            Problems Solved by Category
-                        </p>
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                            <WorthChart usersData={usersData} />
+                            <p className="text-normal  text-[#fbbf24] sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                                Estimated Worth
+                            </p>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div className="w-full mx-auto flex justify-center">
+                        {" "}
+                        <SkeletonComp width={400} height={200} />
+                    </div>
+                )}
+                {usersData ? (
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
+
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                            <NoOfBadgesChart usersData={usersData} />
+                            <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                                Total Badges Earned
+                            </p>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="w-full mx-auto flex justify-center">
+                        {" "}
+                        <SkeletonComp width={400} height={200} />
+                    </div>
+                )}
+
+                {usersData ? (
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
+
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                            <MulitSeriesPieQuestionsCategoryChart
+                                usersData={usersData}
+                            />{" "}
+                            <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                                Problems Solved by Category
+                            </p>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="w-full mx-auto flex justify-center"></div>
+                )}
             </div>
-            <div className="relative w-screen sm:w-[85vw] m-5 mx-auto ">
-                <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs "></div>
+            {usersData ? (
+                <div className="relative w-screen sm:w-[85vw] m-5 mx-auto ">
+                    <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs "></div>
 
-                <div className="relative   z-10 w-full border border-gray-900 rounded-sm shadow-md p-4">
-                    <ContestHistoryChart usersContestData={usersContestData} />
-                    <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                        Contest History
-                    </p>
+                    <div className="relative   z-10 w-full border border-gray-900 rounded-sm shadow-md p-4">
+                        <ContestHistoryChart
+                            usersContestData={usersContestData}
+                        />
+                        <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                            Contest History
+                        </p>
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className="w-full mx-auto flex justify-center">
+                    {" "}
+                    <SkeletonComp width={1000} height={400} />
+                </div>
+            )}
         </div>
     );
 };

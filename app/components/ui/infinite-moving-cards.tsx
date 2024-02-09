@@ -18,22 +18,13 @@ export const InfiniteMovingCards = ({
     const containerRef = React.useRef<HTMLDivElement>(null);
     const scrollerRef = React.useRef<HTMLUListElement>(null);
 
-    console.log("badges items are: ", items);
+    // console.log("badges items are: ", items);
     useEffect(() => {
         addAnimation();
     }, []);
     const [start, setStart] = useState(false);
     function addAnimation() {
         if (containerRef.current && scrollerRef.current) {
-            const scrollerContent = Array.from(scrollerRef.current.children);
-
-            scrollerContent.forEach((item) => {
-                const duplicatedItem = item.cloneNode(true);
-                if (scrollerRef.current) {
-                    scrollerRef.current.appendChild(duplicatedItem);
-                }
-            });
-
             getDirection();
             getSpeed();
             setStart(true);
@@ -85,43 +76,46 @@ export const InfiniteMovingCards = ({
             <ul
                 ref={scrollerRef}
                 className={cn(
-                    " flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
+                    "flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap justify-center items-center",
                     start && "animate-scroll ",
                     "hover:[animation-play-state:paused]"
                 )}
             >
-                {items.map((item, idx) => (
-                    <li
-                        className="w-[200px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 "
-                        style={{
-                            background:
-                                "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
-                        }}
-                        key={item.displayName + idx}
-                    >
-                        <Image
-                            src={item?.medal?.config?.iconGif}
-                            width={100}
-                            height={100}
-                            alt={item.displayName}
-                            className="mx-auto"
-                        ></Image>
-                        <blockquote className="">
-                            <div
-                                aria-hidden="true"
-                                className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-                            ></div>
+                {items.map((item, idx) => {
+                    // console.log(`items number: ${idx + 1}`, item);
+                    return (
+                        <li
+                            className="w-full max-w-[200px] relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6"
+                            style={{
+                                background:
+                                    "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
+                            }}
+                            key={item.displayName + idx}
+                        >
+                            <Image
+                                src={item?.medal?.config?.iconGif}
+                                width={100}
+                                height={100}
+                                alt={item.displayName}
+                                className="mx-auto"
+                            ></Image>
+                            <blockquote className="">
+                                <div
+                                    aria-hidden="true"
+                                    className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+                                ></div>
 
-                            <div className="relative z-20 mt-6 flex flex-row items-center">
-                                <span className="flex flex-col gap-1">
-                                    <span className=" text-sm  text-center leading-[1.6] text-gray-400 font-normal">
-                                        {item.displayName}
+                                <div className="relative z-20 mt-6 flex flex-row items-center">
+                                    <span className="flex flex-col gap-1">
+                                        <span className=" text-sm  text-center leading-[1.6] text-gray-400 font-normal">
+                                            {item.displayName}
+                                        </span>
                                     </span>
-                                </span>
-                            </div>
-                        </blockquote>
-                    </li>
-                ))}
+                                </div>
+                            </blockquote>
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );

@@ -7,9 +7,14 @@ import ContestHistoryChart from "@/app/components/charts/ContestHistoryChart";
 import { InfiniteMovingCards } from "@/app/components/ui/infinite-moving-cards";
 import UserProfileCards from "./chartComponents/UserProfileCards";
 import { calculateLeetCodeWorth } from "@/app/lib/functions";
-import DropDownHam from "../../collection/comps/DropDownHam";
-
+import DropDownHam from "../../../components/DropDownHam";
+// import Loading from "./loading";
 import { updateViews } from "@/app/lib/database-calls";
+
+import SkeletonComp from "@/app/components/SkeletonComp";
+
+// import { Suspense } from "react";
+
 export default function Page({ params }: { params: { username: string } }) {
     const [userData, setUserData] = useState<any>(null);
     const [userContestData, setUserContestData] = useState<any>(null);
@@ -20,7 +25,7 @@ export default function Page({ params }: { params: { username: string } }) {
         const func = async () => {
             const viewCount = await updateViews();
             setViews(viewCount);
-            console.log("views:", viewCount);
+            // console.log("views:", viewCount);
         };
         func();
     }, []);
@@ -42,7 +47,7 @@ export default function Page({ params }: { params: { username: string } }) {
                 });
 
                 const data = await res.json();
-                console.log("userdata is : ", data?.data?.data);
+                // console.log("userdata is : ", data?.data?.data);
 
                 setUserData(data?.data?.data);
             } catch (error) {
@@ -62,7 +67,7 @@ export default function Page({ params }: { params: { username: string } }) {
             userData?.matchedUser?.ranking,
             userData?.matchedUser?.badges?.length
         );
-        console.log("worth is: ", worth);
+        // console.log("worth is: ", worth);
         setWorth(worth);
     }, [userData]);
 
@@ -91,25 +96,40 @@ export default function Page({ params }: { params: { username: string } }) {
     }, [userData]);
 
     return (
-        <div className="w-screen relative">
-            <div
-                className="absolute top-5 right-5 z-99    "
-                style={{
-                    zIndex: 99,
-                }}
-            >
-                {" "}
-                <DropDownHam views={views} />
-            </div>
-            <div className="w-full">
-                {userData && (
-                    <>
-                        <div className="w-full">
+        <div className="max-w-[100vw] overflow-hidden relative">
+            {/* <Suspense fallback={<p>Loading....</p>}> */}
+            {/* <Suspense fallback={<Loading />}> */}
+            <>
+                <div
+                    className="  right-5 fixed top-[92vh] z-99    "
+                    style={{
+                        zIndex: 99,
+                    }}
+                >
+                    {" "}
+                    <DropDownHam views={views} />
+                </div>
+                <div className="w-full">
+                    {userData ? (
+                        <div className="w-full px-2">
                             <UserProfileCards
                                 matchedUserData={userData?.matchedUser}
                                 worth={worth}
                             />
                         </div>
+                    ) : (
+                        <div className="grid grid-cols-2 gap-[200px] justify-center mt-10">
+                            <div className="col-span-2 md:col-span-1 mx-auto">
+                                {" "}
+                                <SkeletonComp width={400} height={200} />
+                            </div>
+                            <div className="col-span-2 md:col-span-1 mx-auto">
+                                {" "}
+                                <SkeletonComp width={400} height={200} />
+                            </div>
+                        </div>
+                    )}
+                    {userData ? (
                         <div className=" w-full  mx-auto md:w-[90%]">
                             <div className="relative">
                                 <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs "></div>
@@ -125,7 +145,13 @@ export default function Page({ params }: { params: { username: string } }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 mx-auto  w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10">
+                    ) : (
+                        <div className="mx-auto  justify-center my-10">
+                            <SkeletonComp height={100} width={1000} />
+                        </div>
+                    )}
+                    {userData ? (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 mx-auto  w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10 px-2">
                             <div className="relative">
                                 <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
 
@@ -153,10 +179,17 @@ export default function Page({ params }: { params: { username: string } }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="relative w-screen sm:w-[85vw] m-5 mx-auto ">
+                    ) : (
+                        <div className="w-full flex justify-center items-center gap-[120px]">
+                            <SkeletonComp width={400} height={400} />
+                            <SkeletonComp width={400} height={400} />
+                        </div>
+                    )}
+                    {userData ? (
+                        <div className="relative w-screen sm:w-[85vw] m-5 mx-auto px-2">
                             <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs "></div>
 
-                            <div className="relative   z-10 w-full border border-gray-900 rounded-sm shadow-md p-4">
+                            <div className="relative   z-10 w-full border border-gray-900 rounded-sm shadow-md p-4 min-h-[300px]">
                                 <ContestHistoryChart
                                     usersContestData={userContestData}
                                 />
@@ -165,10 +198,14 @@ export default function Page({ params }: { params: { username: string } }) {
                                 </p>
                             </div>
                         </div>
-                    </>
-                )}
-                DropDownHam
-            </div>
+                    ) : (
+                        <div className="w-full mx-auto flex justify-center my-10">
+                            <SkeletonComp width={800} height={600} />
+                        </div>
+                    )}
+                </div>
+            </>
+            {/* </Suspense> */}
         </div>
     );
 }

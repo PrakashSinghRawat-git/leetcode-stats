@@ -29,9 +29,26 @@ let userSolvedAndAllQuestions = ` query{
       languageName
       problemsSolved
     }
+  
     
   }
+    recentAcSubmissionList(username: "kalki299", limit: 30) {
+     
+    title
+     
+    timestamp
+  }
   }`;
+
+
+ const recentsubmission =  query recentAcSubmissions(username: "kalki299", limit: 30) {
+  recentAcSubmissionList(username: "kalki299", limit: 30) {
+    id
+    title
+    titleSlug
+    timestamp
+  }
+}
 
 // combined user profile and question userSolvedAndAllQuestions
 const combinedQuery= query {
