@@ -27,19 +27,6 @@ const WorthChart = ({ usersData }: any) => {
         ],
     });
 
-    // useEffect(() => {
-    //     if (userData === null) return;
-    //     const worth = calculateLeetCodeWorth(
-    //         userData?.matchedUser?.submitStatsGlobal?.acSubmissionNum,
-    //         userData?.userContestRanking?.attendedContestsCount,
-    //         userData?.userContestRanking?.rating,
-    //         userData?.matchedUser?.ranking,
-    //         userData?.matchedUser?.badges?.length
-    //     );
-    //     console.log("worth is: ", worth);
-    //     setWorth(worth);
-    // }, [userData]);
-
     useEffect(() => {
         if (usersData) {
             const labels = usersData.map(
@@ -96,7 +83,7 @@ const WorthChart = ({ usersData }: any) => {
                         //         ? "No Badges"
                         //         : data.datasets[0].data[tooltipItem.index]
                         // }`;
-                        return `Badges: ${
+                        return `Worth: ${
                             context.parsed < 1 ? "No Badges" : context.parsed
                         }`;
                     },

@@ -13,6 +13,7 @@ import NavItems from "../comps/NavItems";
 import { updateViews } from "@/app/lib/database-calls";
 import DropDownHam from "../../../components/DropDownHam";
 import SkeletonComp from "@/app/components/SkeletonComp";
+import ProblemsSolvedTimePeriodTabs from "@/app/components/charts/ProblemsSolvedTimePeriodBar";
 
 import { fetchUsernames } from "@/app/lib/database-calls";
 const Page = ({ params }: { params: { group: string } }) => {
@@ -122,12 +123,29 @@ const Page = ({ params }: { params: { group: string } }) => {
                 <UserNamesCloud groupArr={groupArr} />
             </div>
 
-            <div className="grid grid-cols-1 mx-auto lg:grid-cols-2   w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10">
+            <div className="grid grid-cols-1 mx-auto lg:grid-cols-2   w-screen sm:w-[85vw]  gap-5 justify-center items-center mt-10 px-1">
                 {usersData ? (
-                    <div className="relative">
+                    <div className="relative md:min-h-[378px]">
                         <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
 
-                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4 flex-col justify-between">
+                            <ProblemsSolvedTimePeriodTabs groupArr={groupArr} />
+                            <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500  text-center">
+                                Problems Solved Over Time
+                            </p>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="w-full mx-auto flex justify-center ">
+                        {" "}
+                        <SkeletonComp width={400} height={200} />
+                    </div>
+                )}
+                {usersData ? (
+                    <div className="relative py-2  ">
+                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
+
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4  ">
                             <ProblemSolvedBarChart usersData={usersData} />
                             <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
                                 Total Problems Solved
@@ -140,23 +158,7 @@ const Page = ({ params }: { params: { group: string } }) => {
                         <SkeletonComp width={400} height={200} />
                     </div>
                 )}
-                {usersData ? (
-                    <div className="relative">
-                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
 
-                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
-                            <ContestAttendedChart usersData={usersData} />
-                            <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
-                                Total Contest Attended
-                            </p>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="w-full mx-auto flex justify-center">
-                        {" "}
-                        <SkeletonComp width={400} height={200} />
-                    </div>
-                )}
                 {usersData ? (
                     <div className="relative">
                         <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
@@ -207,6 +209,24 @@ const Page = ({ params }: { params: { group: string } }) => {
                     </div>
                 ) : (
                     <div className="w-full mx-auto flex justify-center"></div>
+                )}
+
+                {usersData ? (
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-xs max-w-[600px]"></div>
+
+                        <div className="relative z-10 max-w-[600px] border border-gray-900 rounded-sm shadow-md p-4">
+                            <ContestAttendedChart usersData={usersData} />
+                            <p className="text-normal sm:text-md font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-4 text-center">
+                                Total Contest Attended
+                            </p>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="w-full mx-auto flex justify-center">
+                        {" "}
+                        <SkeletonComp width={400} height={200} />
+                    </div>
                 )}
             </div>
             {usersData ? (

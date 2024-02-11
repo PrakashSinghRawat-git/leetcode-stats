@@ -17,3 +17,10 @@ export const solidColorsArr = [
     "rgba(153, 102, 255,1)",
     "rgba(201, 203, 207,1)",
 ];
+
+export const periodLimitsForProblemSolved = {
+    today: 20,
+    thisWeek: 100,
+    thisMonth: 500,
+    thisYear: 2000,
+};

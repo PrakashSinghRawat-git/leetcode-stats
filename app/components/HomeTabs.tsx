@@ -46,8 +46,11 @@ export default function TabsDemo() {
         console.log("groupArr is : ", groupArr);
     }, [groupArr]);
     const handleVerifyAndAddUser = async () => {
+        setIsSearchingUserStarted(true);
         if (member == "" || groupArr.includes(member)) {
             setMember("");
+            setIsSearchingUserStarted(false);
+
             return;
         }
         const res = await fetch(`/api/checkIsUserValid`, {
@@ -62,11 +65,13 @@ export default function TabsDemo() {
         console.log("data is : ", data);
         if (data?.status == false) {
             toast.error(data?.data);
+            setIsSearchingUserStarted(false);
 
             return;
         }
         setGroupArr([...groupArr, member]);
         setMember("");
+        setIsSearchingUserStarted(false);
     };
 
     const handleNavigateToComparison = () => {
@@ -115,22 +120,22 @@ export default function TabsDemo() {
         router.push(`/user/${userName}`);
     };
     return (
-        <Tabs defaultValue="user" className="w-[400px]">
-            <TabsList className="grid w-full grid-cols-2">
+        <Tabs defaultValue="user" className="w-[400px] bg-transparent">
+            <TabsList className="grid w-full grid-cols-2 bg-transparent  ">
                 <TabsTrigger value="user">View</TabsTrigger>
                 <TabsTrigger value="group">Compare</TabsTrigger>
             </TabsList>
-            <TabsContent value="user">
-                <Card>
+            <TabsContent value="user" className="bg-transparent ">
+                <Card className="bg-transparent text-gray-200 border-[1px] border-gray-700">
                     <CardHeader>
                         <CardTitle>Account</CardTitle>
                         <CardDescription>View Your Profile</CardDescription>
                     </CardHeader>
-                    <CardContent className=" w-full relative   flex items-center my-auto">
+                    <CardContent className=" w-full relative   flex items-center my-auto bg-transparent">
                         <Input
                             id="name"
                             placeholder="Username"
-                            className="py-[25px] text-[18px] w-full   "
+                            className="py-[25px] text-[18px] w-full  text-gray-700  "
                             onChange={(e) => {
                                 setUserName(e.target.value);
                             }}
@@ -160,7 +165,7 @@ export default function TabsDemo() {
                 </Card>
             </TabsContent>
             <TabsContent value="group">
-                <Card>
+                <Card className="bg-transparent text-gray-200 border-[1px] border-gray-700">
                     <CardHeader>
                         <div className="flex justify-between items-center ">
                             <CardTitle className="w-[180px] text-xs mr-1 ">
@@ -182,7 +187,7 @@ export default function TabsDemo() {
 
                                 <Search
                                     strokeWidth={3}
-                                    className={`absolute  right-2 bottom-2 hover:scale-105 ${
+                                    className={`absolute cursor-pointer  right-2 bottom-2 hover:scale-105 ${
                                         collectionNameStatus === true
                                             ? "text-green-500"
                                             : "text-red-500 disabled:cursor-not-allowed disabled:opacity-50 "
@@ -221,13 +226,29 @@ export default function TabsDemo() {
                                         setMember(e.target.value);
                                     }}
                                     value={member}
+                                    className="text-gray-700"
                                 />
                             </div>
+
                             <p
                                 className="col-span-2 bg-blue-600 h-[40px] rounded-sm py-2 text-center mt-3 hover:bg-blue-700 text-gray-200 cursor-pointer"
                                 onClick={handleVerifyAndAddUser}
                             >
-                                add
+                                {isSearchingUserStarted ? (
+                                    <div className="w-full flex justify-center">
+                                        <Oval
+                                            visible={true}
+                                            height="25"
+                                            width="25"
+                                            color="#4fa94d"
+                                            ariaLabel="oval-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass=""
+                                        />
+                                    </div>
+                                ) : (
+                                    "Add"
+                                )}
                             </p>
                         </div>
                         <div>

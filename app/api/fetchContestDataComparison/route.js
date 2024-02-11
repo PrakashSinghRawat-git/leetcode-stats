@@ -7,13 +7,13 @@ export async function POST(req, res) {
     try {
         const body = await req.json();
         const usernames = body.usernames; // Assuming usernames is an array of usernames
-        console.log("usernames", usernames);
+        // console.log("usernames", usernames);
 
         const userDataPromises = usernames.map(async (username) => {
             try {
                 const combinedQuery =
                     userContestHistoryForComparisonQuery(username);
-                console.log("combinedQuery", combinedQuery);
+                // console.log("combinedQuery", combinedQuery);
 
                 const response = await fetch(combinedQuery);
 

@@ -14,7 +14,7 @@ export async function POST(req, res) {
         }
 
         const combinedQuery = completeUserInfoQuery(username, year);
-        console.log("combinedQuery", combinedQuery);
+        // console.log("combinedQuery", combinedQuery);
 
         const response = await fetch(combinedQuery);
 

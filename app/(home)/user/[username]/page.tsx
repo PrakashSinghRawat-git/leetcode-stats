@@ -118,7 +118,7 @@ export default function Page({ params }: { params: { username: string } }) {
                             />
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-[200px] justify-center mt-10">
+                        <div className="grid grid-cols-2 gap:5 md:gap-[200px] items-center justify-center mt-10">
                             <div className="col-span-2 md:col-span-1 mx-auto">
                                 {" "}
                                 <SkeletonComp width={400} height={200} />

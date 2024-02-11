@@ -208,3 +208,19 @@ export const userContestHistoryForComparisonQuery = (username) => {
     const combinedQuery = `${endpoint}?query=${newQuery}`;
     return combinedQuery;
 };
+export const usersSubmissionForComparisonQuery = (username, limit) => {
+    const newQuery = `query {
+         matchedUser(username: "${username}") {
+            
+            username
+             
+        }
+       recentAcSubmissionList(username: "${username}", limit: ${limit}) {
+            title
+            timestamp
+  }
+    }`;
+
+    const combinedQuery = `${endpoint}?query=${newQuery}`;
+    return combinedQuery;
+};

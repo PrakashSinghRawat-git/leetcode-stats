@@ -21,9 +21,6 @@ const ContestAttendedChart = ({ usersContestData }: any) => {
     });
 
     useEffect(() => {
-        console.log("contestHistoryLineData:", contestHistoryLineData);
-    }, [contestHistoryLineData]);
-    useEffect(() => {
         if (usersContestData) {
             const labelsSet = new Set<string>(); // Use a Set to store unique labels
 

@@ -58,7 +58,6 @@ export function calculateLeetCodeWorth(
     ranking,
     badges
 ) {
-    console.log(submissionArr, contestsAttended, rating, ranking, badges);
     // Define weights for different difficulty levels
     const weights = {
         All: 0,
@@ -67,7 +66,6 @@ export function calculateLeetCodeWorth(
         Hard: 20,
     };
     let questionsWorth = 0;
-    console.log("questionsWorth", questionsWorth);
 
     // Calculate worth based on questions solved
     if (submissionArr && submissionArr.length > 0) {
@@ -76,14 +74,10 @@ export function calculateLeetCodeWorth(
         });
     }
 
-    console.log("questionsWorth", questionsWorth);
-
     // Calculate worth based on contests attended
     if (contestsAttended) {
         questionsWorth += 1000 * contestsAttended;
     }
-
-    console.log("questionsWorth", questionsWorth);
 
     // Calculate worth based on rating
 
@@ -98,94 +92,56 @@ export function calculateLeetCodeWorth(
         }
     }
 
-    console.log("questionsWorth", questionsWorth);
-
     // Calculate total worth
     if (badges) {
         questionsWorth += badges * 1000;
     }
 
-    console.log("questionsWorth", questionsWorth);
-
     return questionsWorth;
 }
 //  ********************************************USER SUBMISSION******************************************************* //
-const submissionCalendar = {
-    1674259200: 3,
-    1674604800: 3,
-    1674691200: 3,
-    1674777600: 2,
-    1674864000: 11,
-    1674950400: 6,
-    1675296000: 2,
-    1675382400: 3,
-    1675468800: 6,
-    1686528000: 1,
-    1691280000: 8,
-    1691452800: 4,
-    1691712000: 1,
-    1692403200: 3,
-    1692576000: 1,
-    1693267200: 1,
-    1693612800: 2,
-    1696291200: 2,
-};
 
-// function categorizeTimestamps(submissionCalendar) {
-export function categorizeTimestamps() {
-    const currentDate = new Date();
-    const categorizedTimestamps = {
-        today: 0,
-        yesterday: 0,
-        "this week": 0,
-        "this month": 0,
-        "this year": 0,
-    };
-    const yearlyTimestamps = {};
+export function calculateTimePeriod(period) {
+    const periodStart = new Date();
+    let periodEnd = new Date();
 
-    // Iterate through the timestamps
-    for (const timestamp in submissionCalendar) {
-        const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
-
-        // Calculate the difference in days
-        const diffDays = Math.floor(
-            (currentDate - date) / (1000 * 60 * 60 * 24)
-        );
-
-        // Determine the time period
-        let timePeriod;
-        if (diffDays === 0) {
-            timePeriod = "today";
-        } else if (diffDays === 1) {
-            timePeriod = "yesterday";
-        } else if (diffDays < 7) {
-            timePeriod = "this week";
-        } else if (
-            date.getMonth() === currentDate.getMonth() &&
-            date.getFullYear() === currentDate.getFullYear()
-        ) {
-            timePeriod = "this month";
-        } else if (date.getFullYear() === currentDate.getFullYear()) {
-            timePeriod = "this year";
-        } else {
-            timePeriod = date.getFullYear().toString();
-        }
-
-        // Increment the count for the corresponding time period
-        if (timePeriod === "this year") {
-            yearlyTimestamps[date.getFullYear()] =
-                (yearlyTimestamps[date.getFullYear()] || 0) +
-                submissionCalendar[timestamp];
-        } else {
-            categorizedTimestamps[timePeriod] += submissionCalendar[timestamp];
-        }
+    switch (period) {
+        case "today":
+            periodStart.setHours(0, 0, 0, 0); // Set to the start of the day
+            break;
+        case "thisWeek":
+            // Set to the start of the week (Monday)
+            periodStart.setDate(
+                periodStart.getDate() - ((periodStart.getDay() + 6) % 7)
+            );
+            break;
+        case "thisMonth":
+            periodStart.setDate(1); // Set to the start of the month
+            break;
+        case "thisYear":
+            periodStart.setMonth(0, 1); // Set to the start of the year
+            break;
+        default:
+            break;
     }
 
-    // Combine the categorized timestamps with yearly timestamps
-    for (const year in yearlyTimestamps) {
-        categorizedTimestamps[year] = yearlyTimestamps[year];
+    // Set periodEnd to the end of the selected period
+    if (period === "today") {
+        periodEnd = new Date(); // Current time
+    } else if (period === "thisWeek") {
+        // Set periodEnd to the end of the week (Sunday)
+        periodEnd.setDate(periodStart.getDate() + 6);
+    } else if (period === "thisMonth") {
+        // Set periodEnd to the end of the month
+        periodEnd.setMonth(periodStart.getMonth() + 1, 0); // Last day of the month
+    } else if (period === "thisYear") {
+        // Set periodEnd to the end of the year
+        periodEnd.setMonth(11, 31); // December 31st
     }
 
-    console.log("categorizedTimestamps", categorizedTimestamps);
-    return categorizedTimestamps;
+    // Convert to Unix timestamp (in seconds)
+    const periodStartTimestamp = Math.floor(periodStart.getTime() / 1000);
+    const periodEndTimestamp = Math.floor(periodEnd.getTime() / 1000);
+
+    return { periodStartTimestamp, periodEndTimestamp };
 }
