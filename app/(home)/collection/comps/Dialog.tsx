@@ -148,7 +148,7 @@ export default function DialogDemo({ groupArr, params }: groupArrType) {
                                 strokeWidth={2}
                                 onClick={() => {
                                     navigator.clipboard.writeText(
-                                        `leetstats.vercel.app/collection/${collectionName}`
+                                        `leetstat.vercel.app/collection/${collectionName}`
                                     );
                                     toast.success("copied to clipboard");
                                 }}

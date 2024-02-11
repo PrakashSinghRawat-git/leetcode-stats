@@ -7,7 +7,6 @@ import NoOfBadgesChart from "@/app/components/charts/NoOfBadgesChart";
 import WorthChart from "@/app/components/charts/WorthChart";
 import ContestHistoryChart from "@/app/components/charts/ContestHistoryChart";
 import MulitSeriesPieQuestionsCategoryChart from "@/app/components/charts/MulitSeriesPieQuestionsCategoryChart";
-import ThemeChanger from "@/app/components/ThemeChanger";
 import UserNamesCloud from "../comps/UserNamesCloud";
 import NavItems from "../comps/NavItems";
 import { updateViews } from "@/app/lib/database-calls";

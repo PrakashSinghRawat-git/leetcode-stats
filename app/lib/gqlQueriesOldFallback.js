@@ -3,7 +3,12 @@ const endpoint = process.env.NEXT_PUBLIC_LEETCODE_GRAPHQL_API;
 export const completeUserInfoQuery = (username, year) => {
     const newQuery = `query {
         matchedUser(username: "${username}") {
-           
+            contestBadge {
+                name
+                expired
+                hoverText
+                icon
+            }
            
             username
             githubUrl
@@ -17,14 +22,22 @@ export const completeUserInfoQuery = (username, year) => {
                 school
                 websites
                 countryName
+                company
+                jobTitle
                 skillTags
+                postViewCountDiff
                 postViewCount
                 solutionCount
                 reputation
                 categoryDiscussCount
-                
+                reputationDiff
+                solutionCountDiff
+                categoryDiscussCountDiff
             }
-           
+            problemsSolvedBeatsStats {
+                difficulty
+                percentage
+            }
             languageProblemCount {
       languageName
       problemsSolved
@@ -34,10 +47,27 @@ export const completeUserInfoQuery = (username, year) => {
                     difficulty
                     count
                 }
-            } 
+            }
+            userCalendar(year: ${year}) {
+                activeYears
+                streak
+                totalActiveDays
+                dccBadges {
+                    timestamp
+                    badge {
+                        name
+                        icon
+                    }
+                }
+                submissionCalendar
+            }
             badges {
                 id
+                name
+                shortName
                 displayName
+                icon
+                hoverText
                 medal {
                     slug
                     config {
@@ -45,15 +75,28 @@ export const completeUserInfoQuery = (username, year) => {
                         iconGifBackground
                     }
                 }
+                creationDate
+                category
             }
-          
+            upcomingBadges {
+                name
+                icon
+                progress
+            }
         }
-        
+        allQuestionsCount {
+            difficulty
+            count
+        }
         userContestRanking(username: "${username}") {
             attendedContestsCount
             rating
             globalRanking
-          
+            totalParticipants
+            topPercentage
+            badge {
+                name
+            }
         }
   
     }`;
