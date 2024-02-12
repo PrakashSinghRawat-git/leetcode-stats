@@ -59,7 +59,7 @@ const ContestAttendedChart = ({ usersContestData }: any) => {
                 }
             );
 
-            const labels: string[] = Array.from(labelsSet).splice(-sliceCount); // Convert set back to an array
+            const labels: string[] = Array.from(labelsSet).slice(-sliceCount); // Convert set back to an array
 
             setContestHistoryLineData({ labels: labels, datasets: datasets });
         }
