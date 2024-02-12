@@ -8,27 +8,13 @@ import { Analytics } from "@vercel/analytics/react";
 import { Home } from "lucide-react";
 const inter = Inter({ subsets: ["latin"] });
 import Link from "next/link";
-
-const title = "LeetStat - All LeetCode stats at one place";
-const description =
-    " Leetstat provides all the LeetCode stats in one place with filters, interactive charts, and more. Compare your stats with friends or view anyone's stats by entering their LeetCode username.";
-const url = "https://leetstat.vercel.app/";
-const image = "/metaImage.png";
-const keywords = [
-    "leetcode",
-    "coding",
-    "competetive programming",
-    "algorithms",
-    "data structures",
-    "leetcode stats",
-    "leetcode profile",
-    "stats",
-    "charts",
-    "compare",
-    "friends",
-    "username",
-];
-
+import {
+    title,
+    description,
+    url,
+    image,
+    keywords,
+} from "@/app/lib/metadataInfo";
 export const metadata: Metadata = {
     title: title,
     description: description,
@@ -73,8 +59,6 @@ export default function RootLayout({
                         />
                     </Link>
                     <div className="  w-full bg-black    bg-dot-white/[0.2]  relative flex items-center justify-center">
-                        <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-
                         {children}
 
                         <Analytics />
