@@ -42,20 +42,15 @@ const Page = ({ params }: { params: { group: string } }) => {
     useEffect(() => {
         console.log("fetching usernames");
         const fetchData = async () => {
-            if (params.group !== "temp") {
-                setIsCollectionCreated(true);
+            setIsCollectionCreated(true);
 
-                const data = await fetchUsernames(params.group);
-                if (data) {
-                    console.log("client: data is ", data.usernames);
-                    setGroupArr(data.usernames);
-                } else {
-                    console.log(
-                        "error fetching usernames of group ",
-                        params.group
-                    );
-                } // setGroupArr(data);
-            }
+            const data = await fetchUsernames(params.group);
+            if (data) {
+                console.log("client: data is ", data.usernames);
+                setGroupArr(data.usernames);
+            } else {
+                console.log("error fetching usernames of group ", params.group);
+            } // setGroupArr(data);
         };
 
         fetchData();
