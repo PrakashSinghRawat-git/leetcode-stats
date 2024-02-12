@@ -13,8 +13,7 @@ const title = "LeetStat - All LeetCode stats at one place";
 const description =
     " Leetstat provides all the LeetCode stats in one place with filters, interactive charts, and more. Compare your stats with friends or view anyone's stats by entering their LeetCode username.";
 const url = "https://leetstat.vercel.app/";
-const image =
-    "https://private-user-images.githubusercontent.com/85238910/304101926-4b644120-a425-41e8-9775-1c29dd3c282d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc3NDQ2MDAsIm5iZiI6MTcwNzc0NDMwMCwicGF0aCI6Ii84NTIzODkxMC8zMDQxMDE5MjYtNGI2NDQxMjAtYTQyNS00MWU4LTk3NzUtMWMyOWRkM2MyODJkLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMjEyVDEzMjUwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWUwM2RjYTFhNzQ2NzFmODI3Y2UxNjhkZjQzMjYzNDUwM2UxNmFiNmYzMjc2ZjAzNTFmNGJlODYwZmI4MWYzZjImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.QtlMzut6U6dxwcY0jX0b1F3WGCUhSia2oz4LoN2Ih4Q";
+const image = "/metaImage.png";
 const keywords = [
     "leetcode",
     "coding",

@@ -30,7 +30,7 @@ import globalStore from "@/app/store/globalStore";
 // type GroupArrType = string[];
 // import { GroupArrType } from "@/app/store/globalStore";
 
-export default function TabsDemo() {
+export default function TabsDemo({ active }: { active: string }) {
     const [userName, setUserName] = useState("");
     const [collectionName, setCollectionName] = useState("");
     const [member, setMember] = useState("");
@@ -120,7 +120,10 @@ export default function TabsDemo() {
         router.push(`/user/${userName}`);
     };
     return (
-        <Tabs defaultValue="user" className="w-[400px] bg-transparent">
+        <Tabs
+            defaultValue={active || "user"}
+            className="w-[400px] bg-transparent"
+        >
             <TabsList className="grid w-full grid-cols-2 bg-transparent  ">
                 <TabsTrigger value="user">View</TabsTrigger>
                 <TabsTrigger value="group">Compare</TabsTrigger>
@@ -214,7 +217,7 @@ export default function TabsDemo() {
                             Add Correct Usernames to Compare
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
+                    <CardContent className="">
                         <div className="space-y-1 grid grid-cols-10 items-end gap-2   "></div>
                         <div className="space-y-1 grid grid-cols-10 items-end gap-2   ">
                             <div className="w-full col-span-8">
