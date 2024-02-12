@@ -14,6 +14,8 @@ const ContestAttendedChart = ({ usersContestData }: any) => {
             fill: boolean;
             // backgroundColor: string;
             borderWidth: number;
+            pointRadius: 3; // Set the radius of the points
+            pointHoverRadius: 4;
         }[];
     }>({
         labels: [],
@@ -23,6 +25,12 @@ const ContestAttendedChart = ({ usersContestData }: any) => {
     useEffect(() => {
         if (usersContestData) {
             const labelsSet = new Set<string>(); // Use a Set to store unique labels
+            // Determine the number of elements to slice based on the screen width
+            const screenWidth =
+                window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.body.clientWidth;
+            const sliceCount = screenWidth < 768 ? 50 : 100; // Adjust slicing based on screen width
 
             const datasets = usersContestData.map(
                 (user: any, index: number) => {
@@ -41,15 +49,17 @@ const ContestAttendedChart = ({ usersContestData }: any) => {
 
                     return {
                         label: user.matchedUser.username,
-                        data: data.slice(-100),
+                        data: data.slice(-sliceCount),
                         borderColor: backgroundColor,
                         fill: false,
-                        borderWidth: 2,
+                        borderWidth: screenWidth < 768 ? 1 : 2,
+                        pointRadius: screenWidth < 768 ? 1 : 3,
+                        pointHoverRadius: 4,
                     };
                 }
             );
 
-            const labels: string[] = Array.from(labelsSet).splice(-100); // Convert set back to an array
+            const labels: string[] = Array.from(labelsSet).splice(-sliceCount); // Convert set back to an array
 
             setContestHistoryLineData({ labels: labels, datasets: datasets });
         }
