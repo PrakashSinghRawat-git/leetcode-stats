@@ -100,7 +100,6 @@ export function calculateLeetCodeWorth(
     return questionsWorth;
 }
 //  ********************************************USER SUBMISSION******************************************************* //
-
 export function calculateTimePeriod(period) {
     const periodStart = new Date();
     let periodEnd = new Date();
@@ -108,40 +107,32 @@ export function calculateTimePeriod(period) {
     switch (period) {
         case "today":
             periodStart.setHours(0, 0, 0, 0); // Set to the start of the day
+            periodEnd = new Date(); // Current time
             break;
         case "thisWeek":
-            // Set to the start of the week (Monday)
-            periodStart.setDate(
-                periodStart.getDate() - ((periodStart.getDay() + 6) % 7)
-            );
+            // set to the monday of the current week
+            periodStart.setDate(periodStart.getDate() - periodStart.getDay());
+            periodStart.setHours(0, 0, 0, 0);
+            periodEnd = new Date(); // Current time
             break;
         case "thisMonth":
             periodStart.setDate(1); // Set to the start of the month
+            periodEnd.setMonth(periodStart.getMonth() + 1, 0); // Last day of the month
             break;
         case "thisYear":
             periodStart.setMonth(0, 1); // Set to the start of the year
+            periodEnd.setMonth(11, 31); // December 31st
             break;
         default:
             break;
     }
 
-    // Set periodEnd to the end of the selected period
-    if (period === "today") {
-        periodEnd = new Date(); // Current time
-    } else if (period === "thisWeek") {
-        // Set periodEnd to the end of the week (Sunday)
-        periodEnd.setDate(periodStart.getDate() + 6);
-    } else if (period === "thisMonth") {
-        // Set periodEnd to the end of the month
-        periodEnd.setMonth(periodStart.getMonth() + 1, 0); // Last day of the month
-    } else if (period === "thisYear") {
-        // Set periodEnd to the end of the year
-        periodEnd.setMonth(11, 31); // December 31st
-    }
-
     // Convert to Unix timestamp (in seconds)
     const periodStartTimestamp = Math.floor(periodStart.getTime() / 1000);
     const periodEndTimestamp = Math.floor(periodEnd.getTime() / 1000);
+
+    console.log("periodStart:", periodStart);
+    console.log("periodEnd:", periodEnd);
 
     return { periodStartTimestamp, periodEndTimestamp };
 }

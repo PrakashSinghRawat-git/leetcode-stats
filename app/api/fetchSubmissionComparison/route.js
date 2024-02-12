@@ -14,6 +14,11 @@ export async function POST(req, res) {
         const { periodStartTimestamp, periodEndTimestamp } =
             calculateTimePeriod(period);
 
+        console.log("period: ", period);
+        console.log("limits: ", limits[period]);
+        console.log("periodStartTimestamp: ", periodStartTimestamp);
+        console.log("periodEndTimestamp: ", periodEndTimestamp);
+
         const userDataPromises = usernames.map(async (username) => {
             try {
                 const combinedQuery = usersSubmissionForComparisonQuery(
