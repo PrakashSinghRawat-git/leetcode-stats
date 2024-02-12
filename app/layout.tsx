@@ -28,8 +28,8 @@ export const metadata: Metadata = {
         images: [
             {
                 url: image,
-                width: 800,
-                height: 600,
+                width: 300,
+                height: 200,
             },
         ],
     },
