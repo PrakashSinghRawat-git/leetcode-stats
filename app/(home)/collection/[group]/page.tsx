@@ -14,6 +14,9 @@ import DropDownHam from "../../../components/DropDownHam";
 import SkeletonComp from "@/app/components/SkeletonComp";
 import ProblemsSolvedTimePeriodTabs from "@/app/components/charts/ProblemsSolvedTimePeriodBar";
 
+import Head from "next/head";
+import Ad1 from "@/app/components/ads/Ad1";
+
 import { fetchUsernames } from "@/app/lib/database-calls";
 const Page = ({ params }: { params: { group: string } }) => {
     const {
@@ -34,19 +37,19 @@ const Page = ({ params }: { params: { group: string } }) => {
         const func = async () => {
             const viewCount = await updateViews();
             setViews(viewCount);
-            console.log("views:", viewCount);
+            // console.log("views:", viewCount);
         };
         func();
     }, []);
 
     useEffect(() => {
-        console.log("fetching usernames");
+        // console.log("fetching usernames");
         const fetchData = async () => {
             setIsCollectionCreated(true);
 
             const data = await fetchUsernames(params.group);
             if (data) {
-                console.log("client: data is ", data.usernames);
+                // console.log("client: data is ", data.usernames);
                 setGroupArr(data.usernames);
             } else {
                 console.log("error fetching usernames of group ", params.group);
@@ -103,6 +106,18 @@ const Page = ({ params }: { params: { group: string } }) => {
 
     return (
         <div className="flex-col justify-center items-center text-gray-200">
+            <Head>
+                <script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3979558884312761"
+                    crossOrigin="anonymous"
+                ></script>
+                {/* <script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3979558884312761"
+                    crossOrigin="anonymous"
+                ></script> */}
+            </Head>
             <div
                 className="  right-5 fixed top-[92vh] z-99    "
                 style={{
@@ -152,6 +167,8 @@ const Page = ({ params }: { params: { group: string } }) => {
                         <SkeletonComp width={400} height={200} />
                     </div>
                 )}
+
+                <Ad1 />
 
                 {usersData ? (
                     <div className="relative">

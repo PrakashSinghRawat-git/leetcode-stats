@@ -42,9 +42,9 @@ export default function TabsDemo({ active }: { active: string }) {
         useState<boolean>(false);
     const router = useRouter();
 
-    useEffect(() => {
-        console.log("groupArr is : ", groupArr);
-    }, [groupArr]);
+    // useEffect(() => {
+    //     console.log("groupArr is : ", groupArr);
+    // }, [groupArr]);
     const handleVerifyAndAddUser = async () => {
         setIsSearchingUserStarted(true);
         if (member == "" || groupArr.includes(member)) {
@@ -62,7 +62,7 @@ export default function TabsDemo({ active }: { active: string }) {
         });
         const data = await res.json();
 
-        console.log("data is : ", data);
+        // console.log("data is : ", data);
         if (data?.status == false) {
             toast.error(data?.data);
             setIsSearchingUserStarted(false);
@@ -84,10 +84,10 @@ export default function TabsDemo({ active }: { active: string }) {
 
     const handleInputChange = async (e: any) => {
         try {
-            console.log("collection name", e.target.value);
+            // console.log("collection name", e.target.value);
             setCollectionName(e.target.value);
             const result = await checkGroup(e.target.value);
-            console.log("result:", result);
+            // console.log("result:", result);
             setCollectionNameStatus(result);
         } catch (err) {
             console.error("Error checking group:", err);
@@ -108,7 +108,7 @@ export default function TabsDemo({ active }: { active: string }) {
         });
         const data = await res.json();
 
-        console.log("data is : ", data);
+        // console.log("data is : ", data);
         if (data?.status == false) {
             toast.error("User does not exists...");
             setIsSearchingUserStarted(false);
