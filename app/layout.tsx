@@ -7,6 +7,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { Home } from "lucide-react";
 const inter = Inter({ subsets: ["latin"] });
+
+import Head from "next/head";
 import Link from "next/link";
 import {
     title,
@@ -48,6 +50,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <Head>
+                <script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3979558884312761"
+                    crossOrigin="anonymous"
+                ></script>
+            </Head>
             <body className={`${inter.className}`}>
                 <div className=" w-full bg-black   bg-dot-white/[0.2]   relative flex items-center justify-center">
                     <Link href="/">
